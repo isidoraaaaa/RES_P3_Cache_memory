@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WriterKomponenta", "WriterK
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DumpingBufferKomponenta", "DumpingBufferKomponenta\DumpingBufferKomponenta.csproj", "{82DBAD69-7017-4B10-BE47-B2E91EE598A5}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PodatakTest", "PodatakTest\PodatakTest.csproj", "{A0290B83-76FC-4999-AD77-EDBDAFBE04C6}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{82DBAD69-7017-4B10-BE47-B2E91EE598A5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{82DBAD69-7017-4B10-BE47-B2E91EE598A5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{82DBAD69-7017-4B10-BE47-B2E91EE598A5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A0290B83-76FC-4999-AD77-EDBDAFBE04C6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A0290B83-76FC-4999-AD77-EDBDAFBE04C6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A0290B83-76FC-4999-AD77-EDBDAFBE04C6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A0290B83-76FC-4999-AD77-EDBDAFBE04C6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

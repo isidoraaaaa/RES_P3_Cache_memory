@@ -14,6 +14,17 @@ namespace Common
         double vrijednost;
         DateTime vrijeme;
 
+        string kodAnalog = "CODE_ANALOG";
+        string kodDigital = "CODE_DIGITAL";
+        string kodCustom = "CODE_CUSTOM";
+        string kodLimitset = "CODE_LIMITSET";
+        string kodSinglenoe = "CODE_SINGLENOE";
+        string kodMultiplenode = "CODE_MULTIPLENODE";
+        string kodConsumer = "CODE_CONSUMER";
+        string kodSource = "CODE_SOURCE";
+        string kodMotion = "CODE_MOTION";
+        string kodSensor = "CODE_SENSOR";
+
         [DataMember]
         public string Kod { get { return kod; } set { kod = value; } }
         [DataMember]
@@ -30,9 +41,36 @@ namespace Common
 
         public Podatak(string kod,double vrijednost,DateTime vrijeme)
         {
-            Kod = kod;
+            if (kod.ToUpper() != kodAnalog && kod.ToUpper() != kodDigital && kod.ToUpper() != kodCustom && kod.ToUpper() != kodLimitset &&
+              kod.ToUpper() != kodSinglenoe && kod.ToUpper() != kodMultiplenode && kod.ToUpper() != kodConsumer && kod.ToUpper() != kodSource && kod.ToUpper() != kodMotion && kod.ToUpper() != kodSensor)
+            {
+                throw new ArgumentException("Pogresan kod!");
+            }
+            else
+            {
+                Kod = kod;
+            }
+
             Vrijednost = vrijednost;
             Vrijeme = vrijeme;
+           
+           
+
+        }
+
+        public Podatak(string kod, double vrijednost)
+        {
+            if (kod.ToUpper() != kodAnalog && kod.ToUpper() != kodDigital && kod.ToUpper() != kodCustom && kod.ToUpper() != kodLimitset &&
+                 kod.ToUpper() != kodSinglenoe && kod.ToUpper() != kodMultiplenode && kod.ToUpper() != kodConsumer && kod.ToUpper() != kodSource && kod.ToUpper() != kodMotion && kod.ToUpper() != kodSensor)
+            {
+                throw new ArgumentException("Pogresan kod!");
+            }
+            else
+            {
+                Kod = kod;
+            }
+
+            Vrijednost = vrijednost;
         }
 
         public override string ToString()
