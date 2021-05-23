@@ -14,5 +14,9 @@ namespace Common
         void automatskiUDumpingBuffer();
         [OperationContract]
         void manuelnoUDumpingBuffer(Podatak p);
+
+        [OperationContract]
+        void KonverzijaPodatakaUCollectionDescription(Podatak p);
+
     }
 }

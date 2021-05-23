@@ -26,6 +26,7 @@ namespace DumpingBufferKomponenta
         double vrijednost = 0.0;
         Random random = new Random();
         Podatak p = new Podatak();
+        int brojacKonverzija = 0; // sluzi za generisanje jedinstvenog Id
 
         //funkcija za svaku vrijednsot brojaca ima odredjeno koji kod salje, dok je vrijednsot koju salje 
         //random broj koji se izracunava po odredjenom formuli
@@ -41,6 +42,7 @@ namespace DumpingBufferKomponenta
                     p.Vrijednost = vrijednost;
                     p.Vrijeme = DateTime.Now;
                     Console.WriteLine(p);
+                    KonverzijaPodatakaUCollectionDescription(p);
                     break;
                 case 2:
                     p.Kod = kodDigital;       
@@ -49,6 +51,7 @@ namespace DumpingBufferKomponenta
                     p.Vrijednost = vrijednost;
                     p.Vrijeme = DateTime.Now;
                     Console.WriteLine(p);
+                    KonverzijaPodatakaUCollectionDescription(p);
                     break;
                 case 3:
                     p.Kod = kodCustom;
@@ -57,6 +60,7 @@ namespace DumpingBufferKomponenta
                     p.Vrijednost = vrijednost;
                     p.Vrijeme = DateTime.Now;
                     Console.WriteLine(p);
+                    KonverzijaPodatakaUCollectionDescription(p);
                     break;
                 case 4:
                     p.Kod = kodLimitset;
@@ -65,6 +69,7 @@ namespace DumpingBufferKomponenta
                     p.Vrijednost = vrijednost;
                     p.Vrijeme = DateTime.Now;
                     Console.WriteLine(p);
+                    KonverzijaPodatakaUCollectionDescription(p);
                     break;
                 case 5:
                     p.Kod = kodSinglenoe;
@@ -73,6 +78,7 @@ namespace DumpingBufferKomponenta
                     p.Vrijednost = vrijednost;
                     p.Vrijeme = DateTime.Now;
                     Console.WriteLine(p);
+                    KonverzijaPodatakaUCollectionDescription(p);
                     break;
                 case 6:
                     p.Kod = kodMultiplenode;
@@ -81,6 +87,7 @@ namespace DumpingBufferKomponenta
                     p.Vrijednost = vrijednost;
                     p.Vrijeme = DateTime.Now;
                     Console.WriteLine(p);
+                    KonverzijaPodatakaUCollectionDescription(p);
                     break;
                 case 7:
                     p.Kod = kodConsumer;
@@ -89,6 +96,7 @@ namespace DumpingBufferKomponenta
                     p.Vrijednost = vrijednost;
                     p.Vrijeme = DateTime.Now;
                     Console.WriteLine(p);
+                    KonverzijaPodatakaUCollectionDescription(p);
                     break;
                 case 8:
                     p.Kod = kodSource;
@@ -97,6 +105,7 @@ namespace DumpingBufferKomponenta
                     p.Vrijednost = vrijednost;
                     p.Vrijeme = DateTime.Now;
                     Console.WriteLine(p);
+                    KonverzijaPodatakaUCollectionDescription(p);
                     break;
                 case 9:
                     p.Kod = kodMotion;
@@ -105,6 +114,7 @@ namespace DumpingBufferKomponenta
                     p.Vrijednost = vrijednost;
                     p.Vrijeme = DateTime.Now;
                     Console.WriteLine(p);
+                    KonverzijaPodatakaUCollectionDescription(p);
                     break;
                 case 10:
                     p.Kod = kodSensor;
@@ -113,6 +123,7 @@ namespace DumpingBufferKomponenta
                     p.Vrijednost = vrijednost;
                     p.Vrijeme = DateTime.Now;
                     Console.WriteLine(p);
+                    KonverzijaPodatakaUCollectionDescription(p);
                     break;
                 default:
                     brojac = 0;
@@ -124,53 +135,87 @@ namespace DumpingBufferKomponenta
         //manuelni unos poredi kakav kod je prosledjen i na osnovu nejga ispisuje  sta je poslato i da li je ispravno
         public void manuelnoUDumpingBuffer(Podatak p)
         {
+           
             switch (p.Kod.ToUpper())
             {
                 case "CODE_ANALOG":
                     p.Kod = "CODE_ANALOG";
                     Console.WriteLine(p);
+                    KonverzijaPodatakaUCollectionDescription(p);
                     break;
                 case "CODE_DIGITAL":
                     p.Kod ="CODE_DIGITAL";
                     Console.WriteLine(p);
+                    KonverzijaPodatakaUCollectionDescription(p);
                     break;
                 case "CODE_CUSTOM":
                     p.Kod = "CODE_CUSTOM";
                     Console.WriteLine(p);
+                    KonverzijaPodatakaUCollectionDescription(p);
                     break;
                 case "CODE_LIMITSET":
                     p.Kod = "CODE_LIMITSET";
                     Console.WriteLine(p);
+                    KonverzijaPodatakaUCollectionDescription(p);
                     break;
                 case "CODE_SINGLENOE":
                     p.Kod = "CODE_SINGLENOE";
                     Console.WriteLine(p);
+                    KonverzijaPodatakaUCollectionDescription(p);
                     break;
                 case "CODE_MULTIPLENODE":
                     p.Kod = "CODE_MULTIPLENODE";
                     Console.WriteLine(p);
+                    KonverzijaPodatakaUCollectionDescription(p);
                     break;
                 case "CODE_CONSUMER":
                     p.Kod = "CODE_CONSUMER";
                     Console.WriteLine(p);
+                    KonverzijaPodatakaUCollectionDescription(p);
                     break;
                 case "CODE_SOURCE":
                     p.Kod = "CODE_SOURCE";
                     Console.WriteLine(p);
+                    KonverzijaPodatakaUCollectionDescription(p);
                     break;
                 case "CODE_MOTION":
                     p.Kod = "CODE_MOTION";
                     Console.WriteLine(p);
+                    KonverzijaPodatakaUCollectionDescription(p);
                     break;
                 case "CODE_SENSOR":
                     p.Kod = "CODE_SENSOR";
                     Console.WriteLine(p);
+                    KonverzijaPodatakaUCollectionDescription(p);
                     break;
                 default:
                     Console.WriteLine("Unijeli ste nepostojeci kod");
                     break;
             }
            
+        }
+
+        public void KonverzijaPodatakaUCollectionDescription(Podatak p)
+        {
+            CollectionDescription cd = new CollectionDescription();
+            cd.Id = brojacKonverzija;
+            brojacKonverzija++;
+
+           if(cd.DumpingPropertyCollection.ContainsKey(p.Kod))
+            {
+                cd.DumpingPropertyCollection[p.Kod] = p.Vrijednost;
+            }
+           else
+            {
+                cd.DumpingPropertyCollection.Add(p.Kod, p.Vrijednost);
+
+            }
+            if(cd.DataSet.ContainsKey(p.Kod))
+            {
+                cd.DataSet[p.Kod].Add(p.Vrijednost);
+            }
+
+
         }
     }
 }
