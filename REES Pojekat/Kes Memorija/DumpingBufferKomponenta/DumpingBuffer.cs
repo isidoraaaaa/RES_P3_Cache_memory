@@ -1,13 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.ServiceModel;
 using System.Text;
 using System.Threading.Tasks;
 using Common;
 namespace DumpingBufferKomponenta
+
 {
+   
     public class DumpingBuffer : IDumpingBuffer
     {
+
         int brojac = 0;//koristimo da gledamo gledamo koji cemo string slati u funkciji za automatsko slanje
 
  #region lista kodova
@@ -36,6 +40,10 @@ namespace DumpingBufferKomponenta
         bool add = false;
         bool remove = false;
         DeltaCD dc = new DeltaCD();
+
+     
+
+       
 
         //funkcija za svaku vrijednsot brojaca ima odredjeno koji kod salje, dok je vrijednsot koju salje 
         //random broj koji se izracunava po odredjenom formuli
@@ -204,7 +212,6 @@ namespace DumpingBufferKomponenta
            
         }
 
-
         public void KonverzijaPodatakaUCollectionDescription(Podatak p)
         {
             CollectionDescription cd = new CollectionDescription();
@@ -261,9 +268,23 @@ namespace DumpingBufferKomponenta
 
             }
 
-            if (cd.Dataset.ContainsKey(p.Kod) && cd.DumpingPropertyCollection.ContainsKey(p.Kod) && cd.DumpingPropertyCollection[p.Kod] != p.Vrijednost)
+            //Provera da li dati kod postoji u okviru dataseta, da li dati kod postoji vec u dumpingProperyCollection strukturi i ako postoji da li je njegova vrednost razlicita
+            //od pristigle vrednosti pristiglog podatka
+
+            for (int i = 0; i < cd.DumpingPropertyCollection.Count; i++)
             {
-                dveRazliciteVrednostiUOkviruIstogDataseta = true;
+                for (int j = 0; j < cd.DumpingPropertyCollection.Count; j++)
+                {
+                    KeyValuePair<string, double> pair1 = cd.DumpingPropertyCollection.ElementAt(i);
+                    KeyValuePair<string, double> pair2 = cd.DumpingPropertyCollection.ElementAt(j);
+                    if (cd.Dataset[pair1.Key] == cd.Dataset[pair2.Key])
+                    {
+                        if (pair1.Value != pair2.Value)
+                            dveRazliciteVrednostiUOkviruIstogDataseta = true;
+                    }
+
+                }
+
             }
 
             if (dveRazliciteVrednostiUOkviruIstogDataseta == true)
@@ -279,24 +300,25 @@ namespace DumpingBufferKomponenta
 
             if (brojacUkupnoPrimljenihPodatakaOdWritera == 10)
             {
-                if (dc.Add != null && dc.Update != null)
+                if (dc.Add == null && dc.Update == null)
                 {
-                    //if(brojacUkupnoPrimljenihPodatakaOdWritera==20)
+                    if (brojacUkupnoPrimljenihPodatakaOdWritera == 20)
+                    {
+                       
+                    }
                     //Kako proslediti IHistorical  u Dumping buffer da bi mogla da se implementira metoda Write
                     //writeToHistory
                 }
                 else
                 {
-                    if (brojacUkupnoPrimljenihPodatakaOdWritera == 20)
-                    {
-                        //WriteToHistory
-                    }
-
+                    //kanal.WriteToHistory();
                 }
             }
             brojacKonverzija++;
 
         }
+
+
 
     }
 }

@@ -12,11 +12,7 @@ namespace Common
         Dictionary<string, double> dumpingPropertyCollection = new Dictionary<string, double>();
         Dictionary<string, int> dataset = new Dictionary<string, int>();
 
-        public CollectionDescription()
-        {
-
-        }
-
+        public CollectionDescription() {}
         
         public int Id { get => id; set => id = value; }
         public Dictionary<string, double> DumpingPropertyCollection { get => dumpingPropertyCollection; set => dumpingPropertyCollection = value; }

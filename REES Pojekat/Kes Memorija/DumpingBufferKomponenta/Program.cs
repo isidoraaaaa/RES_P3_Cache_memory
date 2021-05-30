@@ -29,9 +29,10 @@ namespace DumpingBufferKomponenta
         string kodSensor = "CODE_SENSOR";
 
        
+
         static void Main(string[] args)
         {
-            IHistorical kanal;
+            
             try
             {
                 ServiceHost server = new ServiceHost(typeof(DumpingBuffer));
@@ -52,17 +53,16 @@ namespace DumpingBufferKomponenta
                 new NetTcpBinding(), new EndpointAddress("net.tcp://localhost:8000/IHistorical")
                 );
 
-                 kanal = factory.CreateChannel();
+                IHistorical kanal = factory.CreateChannel();
 
                 Console.WriteLine("Uspjesno uspostavljena veza sa Historicalom");
-              
+
             }
             catch (Exception)
             {
                 Console.WriteLine("Neuspesno povezivanje sa serverom");
                 Console.ReadLine();
             }
-
 
 
             Console.ReadLine();
