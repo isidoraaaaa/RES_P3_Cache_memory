@@ -9,7 +9,7 @@ namespace Historical
 {
     public class Historical : IHistorical
     {
-        public void PrimanjePodatakaOdDumpingBuffera()
+        public void WriteToHistory()
         {
             throw new NotImplementedException();
         }

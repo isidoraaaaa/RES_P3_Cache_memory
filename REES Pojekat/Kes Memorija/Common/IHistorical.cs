@@ -11,6 +11,6 @@ namespace Common
     public interface IHistorical
     {
         [OperationContract]
-        void PrimanjePodatakaOdDumpingBuffera();
+        void WriteToHistory();
     }
 }

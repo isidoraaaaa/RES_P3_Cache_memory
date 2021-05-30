@@ -26,7 +26,16 @@ namespace DumpingBufferKomponenta
         double vrijednost = 0.0;
         Random random = new Random();
         Podatak p = new Podatak();
+
+
+
         int brojacKonverzija = 0; // sluzi za generisanje jedinstvenog Id
+        bool dveRazliciteVrednostiUOkviruIstogDataseta = false;
+        int brojacUkupnoPrimljenihPodatakaOdWritera = 0;
+        bool update = false;
+        bool add = false;
+        bool remove = false;
+        DeltaCD dc = new DeltaCD();
 
         //funkcija za svaku vrijednsot brojaca ima odredjeno koji kod salje, dok je vrijednsot koju salje 
         //random broj koji se izracunava po odredjenom formuli
@@ -195,27 +204,99 @@ namespace DumpingBufferKomponenta
            
         }
 
+
         public void KonverzijaPodatakaUCollectionDescription(Podatak p)
         {
             CollectionDescription cd = new CollectionDescription();
             cd.Id = brojacKonverzija;
-            brojacKonverzija++;
 
-           if(cd.DumpingPropertyCollection.ContainsKey(p.Kod))
+            brojacUkupnoPrimljenihPodatakaOdWritera++;
+
+
+            switch (p.Kod)
+            {
+                case "CODE_ANALOG":
+                    cd.Dataset[kodAnalog] = 1;
+                    break;
+                case "CODE_DIGITAL":
+                    cd.Dataset[kodDigital] = 1;
+                    break;
+                case "CODE_CUSTOM":
+                    cd.Dataset[kodCustom] = 2;
+                    break;
+                case "CODE_LIMITSET":
+                    cd.Dataset[kodLimitset] = 2;
+                    break;
+                case "CODE_SINGLENOE":
+                    cd.Dataset[kodSinglenoe] = 3;
+                    break;
+                case "CODE_MULTIPLENODE":
+                    cd.Dataset[kodMultiplenode] = 3;
+                    break;
+                case "CODE_CONSUMER":
+                    cd.Dataset[kodConsumer] = 4;
+                    break;
+                case "CODE_SOURCE":
+                    cd.Dataset[kodSource] = 4;
+                    break;
+                case "CODE_MOTION":
+                    cd.Dataset[kodMotion] = 5;
+                    break;
+                case "CODE_SENSOR":
+                    cd.Dataset[kodSensor] = 5;
+                    break;
+
+            }
+
+            if (cd.DumpingPropertyCollection.ContainsKey(p.Kod))
             {
                 cd.DumpingPropertyCollection[p.Kod] = p.Vrijednost;
+                update = true;
+
             }
-           else
+            else
             {
                 cd.DumpingPropertyCollection.Add(p.Kod, p.Vrijednost);
+                add = true;
 
             }
-            if(cd.DataSet.ContainsKey(p.Kod))
+
+            if (cd.Dataset.ContainsKey(p.Kod) && cd.DumpingPropertyCollection.ContainsKey(p.Kod) && cd.DumpingPropertyCollection[p.Kod] != p.Vrijednost)
             {
-                cd.DataSet[p.Kod].Add(p.Vrijednost);
+                dveRazliciteVrednostiUOkviruIstogDataseta = true;
             }
 
+            if (dveRazliciteVrednostiUOkviruIstogDataseta == true)
+            {
+
+                dc.TransactionId = brojacKonverzija;
+                if (add == true)
+                    dc.Add = cd;
+                else
+                    dc.Update = cd;
+
+            }
+
+            if (brojacUkupnoPrimljenihPodatakaOdWritera == 10)
+            {
+                if (dc.Add != null && dc.Update != null)
+                {
+                    //if(brojacUkupnoPrimljenihPodatakaOdWritera==20)
+                    //Kako proslediti IHistorical  u Dumping buffer da bi mogla da se implementira metoda Write
+                    //writeToHistory
+                }
+                else
+                {
+                    if (brojacUkupnoPrimljenihPodatakaOdWritera == 20)
+                    {
+                        //WriteToHistory
+                    }
+
+                }
+            }
+            brojacKonverzija++;
 
         }
+
     }
 }

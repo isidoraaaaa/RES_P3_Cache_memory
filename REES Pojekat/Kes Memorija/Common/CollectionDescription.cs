@@ -10,7 +10,7 @@ namespace Common
     {
         private int id;
         Dictionary<string, double> dumpingPropertyCollection = new Dictionary<string, double>();
-        Dictionary<string, List<double>> dataSet = new Dictionary<string, List<double>>();
+        Dictionary<string, int> dataset = new Dictionary<string, int>();
 
         public CollectionDescription()
         {
@@ -20,6 +20,6 @@ namespace Common
         
         public int Id { get => id; set => id = value; }
         public Dictionary<string, double> DumpingPropertyCollection { get => dumpingPropertyCollection; set => dumpingPropertyCollection = value; }
-        public Dictionary<string, List<double>> DataSet { get => dataSet; set => dataSet = value; }
+        public Dictionary<string, int> Dataset { get => dataset; set => dataset = value; }
     }
 }
