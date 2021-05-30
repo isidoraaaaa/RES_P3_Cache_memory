@@ -32,17 +32,18 @@ namespace DumpingBufferKomponenta
 
 
 
+        bool update = false;
+        bool add = false;
+        DeltaCD dc = new DeltaCD();
         int brojacKonverzija = 0; // sluzi za generisanje jedinstvenog Id
         bool dveRazliciteVrednostiUOkviruIstogDataseta = false;
         int brojacUkupnoPrimljenihPodatakaOdWritera = 0;
-        bool update = false;
-        bool add = false;
-        bool remove = false;
-        DeltaCD dc = new DeltaCD();
+        IHistorical kanal = Singleton.Instance();
+        CollectionDescription cd = new CollectionDescription();
 
-     
 
-       
+
+
 
         //funkcija za svaku vrijednsot brojaca ima odredjeno koji kod salje, dok je vrijednsot koju salje 
         //random broj koji se izracunava po odredjenom formuli
@@ -213,7 +214,7 @@ namespace DumpingBufferKomponenta
 
         public void KonverzijaPodatakaUCollectionDescription(Podatak p)
         {
-            CollectionDescription cd = new CollectionDescription();
+            
             cd.Id = brojacKonverzija;
 
             brojacUkupnoPrimljenihPodatakaOdWritera++;
@@ -303,14 +304,19 @@ namespace DumpingBufferKomponenta
                 {
                     if (brojacUkupnoPrimljenihPodatakaOdWritera == 20)
                     {
-                       
+                        kanal.WriteToHistory(dc);
+                        brojacUkupnoPrimljenihPodatakaOdWritera = 0;
                     }
-                    //Kako proslediti IHistorical  u Dumping buffer da bi mogla da se implementira metoda Write
-                    //writeToHistory
+                    else
+                    {
+                        brojacUkupnoPrimljenihPodatakaOdWritera = 0;
+                    }
+                    
                 }
                 else
                 {
-                    //kanal.WriteToHistory();
+                    kanal.WriteToHistory(dc);
+                    brojacUkupnoPrimljenihPodatakaOdWritera = 0;
                 }
             }
             brojacKonverzija++;

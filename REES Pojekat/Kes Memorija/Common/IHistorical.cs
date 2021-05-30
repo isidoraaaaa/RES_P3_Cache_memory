@@ -11,6 +11,6 @@ namespace Common
     public interface IHistorical
     {
         [OperationContract]
-        void WriteToHistory();
+        void WriteToHistory(DeltaCD cd);
     }
 }
