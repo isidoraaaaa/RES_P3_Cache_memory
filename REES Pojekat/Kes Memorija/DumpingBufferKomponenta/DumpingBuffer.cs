@@ -12,8 +12,7 @@ namespace DumpingBufferKomponenta
     public class DumpingBuffer : IDumpingBuffer
     {
 
-        int brojac = 0;//koristimo da gledamo gledamo koji cemo string slati u funkciji za automatsko slanje
-
+        Random r = new Random();
  #region lista kodova
         string kodAnalog = "CODE_ANALOG";
         string kodDigital = "CODE_DIGITAL";
@@ -49,7 +48,7 @@ namespace DumpingBufferKomponenta
         //random broj koji se izracunava po odredjenom formuli
         public void automatskiUDumpingBuffer()
         {
-            brojac++;
+            int brojac = r.Next(1, 10);
             switch (brojac)
             {
                 case 1:

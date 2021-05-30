@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace Common
 {
     [DataContract]
-    public class Podatak
+    public class Podatak : IPodatak
     {
         string kod;
         double vrijednost;
@@ -32,6 +32,7 @@ namespace Common
         [DataMember]
         public DateTime Vrijeme { get { return vrijeme; } set { vrijeme = value; } }
 
+      
         public Podatak()
         {
             Kod = "";
@@ -39,7 +40,7 @@ namespace Common
             Vrijeme = DateTime.Now;
         }
 
-        public Podatak(string kod,double vrijednost,DateTime vrijeme)
+        public Podatak(string kod, double vrijednost, DateTime vrijeme)
         {
             if (kod.ToUpper() != kodAnalog && kod.ToUpper() != kodDigital && kod.ToUpper() != kodCustom && kod.ToUpper() != kodLimitset &&
               kod.ToUpper() != kodSinglenoe && kod.ToUpper() != kodMultiplenode && kod.ToUpper() != kodConsumer && kod.ToUpper() != kodSource && kod.ToUpper() != kodMotion && kod.ToUpper() != kodSensor)
@@ -50,32 +51,14 @@ namespace Common
             {
                 Kod = kod;
             }
-
+            //ZA DATUM I VRIJEDNOST NISAM PRAVIO PROVJERE JER NE MOZES UNIJETI STRING ZA BROJ,A DATUM SVAKAKO AUTOMATSKI KUPI TRENUTNI DATUM
+            //TAKO DA NI TU NE MOZE BITI GRESKE TIPA NE MOZES POGRESAN FORMAT UNIJETI JER TO DATETIME OBAVLJA UMJESTO TEBE
             Vrijednost = vrijednost;
             Vrijeme = vrijeme;
-           
-           
-
         }
-
-        public Podatak(string kod, double vrijednost)
-        {
-            if (kod.ToUpper() != kodAnalog && kod.ToUpper() != kodDigital && kod.ToUpper() != kodCustom && kod.ToUpper() != kodLimitset &&
-                 kod.ToUpper() != kodSinglenoe && kod.ToUpper() != kodMultiplenode && kod.ToUpper() != kodConsumer && kod.ToUpper() != kodSource && kod.ToUpper() != kodMotion && kod.ToUpper() != kodSensor)
-            {
-                throw new ArgumentException("Pogresan kod!");
-            }
-            else
-            {
-                Kod = kod;
-            }
-
-            Vrijednost = vrijednost;
-        }
-
         public override string ToString()
         {
-            return "Kod " + Kod + " sa vriejdnoscu " + Vrijednost.ToString() + " je poslata " + Vrijeme; 
+            return "Kod " + Kod + " sa vriejdnoscu " + Vrijednost.ToString() + " je poslata " + Vrijeme;
         }
     }
 }

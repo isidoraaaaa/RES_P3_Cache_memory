@@ -47,6 +47,7 @@
     <Compile Include="DeltaCD.cs" />
     <Compile Include="IDumpingBuffer.cs" />
     <Compile Include="IHistorical.cs" />
+    <Compile Include="IPodatak.cs" />
     <Compile Include="Podatak.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

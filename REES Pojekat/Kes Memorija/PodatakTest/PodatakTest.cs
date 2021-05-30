@@ -11,31 +11,28 @@ namespace PodatakTest
     [TestFixture]
     class PodatakTest
     {
-         
         [Test]
-        [TestCase("CODE_ANALOG",22.5)]
-        [TestCase("CODE_DIGITAL",555.3)]
-        [TestCase("cOdE_DiGITal",22.893)]
-        public void PodatakSaDobrimParametrimaBezDatuma(string kod,double vrijednost)
-        {
-            Podatak p = new Podatak(kod, vrijednost);
-            Assert.AreEqual(p.Kod,kod);
-            Assert.AreEqual(p.Vrijednost, vrijednost);
-        }
-
-        [Test]
-        [TestCase("pera",123.234)]
-        [ExpectedException(typeof(ArgumentException))]
-        public void PodatakSaLosimParametrimaBezDatuma(string kod,double vrijednost)
-        {
-            Podatak p = new Podatak(kod, vrijednost);
-        }
-
-        [Test]
-        [TestCase("CODE_ANALOG",2343.24,"2021/05/22")]
-        [TestCase("CODE_DIGITAL",8473.2355,"1998/07/23")]
-
-        public void PodatakSaDobrimParametrimaSaDatumom(string kod,double vrijednost,DateTime datum)
+        [TestCase("CODE_ANALOG", 22.5, "06/07/1998")]
+        [TestCase("CODE_DIGITAL", 555.3, "06/08/1999")]
+        [TestCase("cOdE_DiGITal", 22.893, "06/09/2000")]
+        [TestCase("CODE_CUSTOM", 55.23, "06/10/2001")]
+        [TestCase("CODE_LIMITSET", 44.1234, "06/11/2002")]
+        [TestCase("CODE_SINGLENOE", 99.865, "06/12/2003")]
+        [TestCase("CODE_MULTIPLENODE", 123.234, "07/07/2004")]
+        [TestCase("CODE_CONSUMER", 876.239, "07/16/2005")]
+        [TestCase("CODE_SOURCE", 54.23, "06/11/2006")]
+        [TestCase("CODE_MOTION", 764.232, "09/11/2007")]
+        [TestCase("CODE_SENSOR", 123.333, "03/09/2008")]
+        [TestCase("CoDe_CuSTOm", 1222.345, "04/12/2009")]
+        [TestCase("cODe_LIMITset", 123.3322, "09/13/2010")]
+        [TestCase("CODE_singlenoe", 77.23, "05/05/2011")]
+        [TestCase("COde_MULTIpleNoDe", 2323.33344, "07/24/2012")]
+        [TestCase("code_consumer", 22.33, "06/07/2013")]
+        [TestCase("code_SOURCe", 1.23, "04/13/2014")]
+        [TestCase("COdE_MOtioN", 2.33, "12/03/2015")]
+        [TestCase("code_sensoR", 22.44444, "10/02/2016")]
+        [TestCase("code_ANALog", 22.33333, "01/01/2017")]
+        public void PodatakSaDobrimParametrima(string kod, double vrijednost, DateTime datum)
         {
             Podatak p = new Podatak(kod, vrijednost, datum);
             Assert.AreEqual(p.Kod, kod);
@@ -44,14 +41,20 @@ namespace PodatakTest
         }
 
 
-        //ovaj test dole trenutno ne prolazi zato sto treba ubaciti logiku za provjeru datuma
-        [Test]
-        [TestCase("CODE_ANALOG",2354.23,"1231231/2323/23232")]
-        [ExpectedException(typeof(ArgumentException))]
-        public void PodatakSaLosimParametrimaSaDatumom(string kod, double vrijednost, DateTime datum)
-        {
-            Podatak p = new Podatak(kod, vrijednost, datum);
+        //NAPOENA ZA DATUM, POSTO GA PROSLEDJUJEMO KAO DATETIME NE MORAMO DA IMAMO PROVJERU DA LI SMO PRAVILNO UNIJELI DATUM JER
+        //GA NE UNOSIMO KAO STRING
+        //E SAD JEDINO JE TREBALO VODITI RACUNA PRILIKOM PISANJA TESTOVA JER DATUM MORA BITI OBLIKA MM//dd//yyyy
 
+        [Test]
+        [TestCase("hmmm", 222.22, "03/05/1995")]
+        public void PodatakSaLosimParamterima(string kod, double vrijednost, DateTime datum)
+        {
+            Assert.Throws<ArgumentException>(
+               () =>
+               {
+                   Podatak p = new Podatak(kod, vrijednost, datum);
+               }
+               );
         }
     }
 }
