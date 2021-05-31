@@ -40,6 +40,7 @@ namespace DumpingBufferKomponenta
         int brojacUkupnoPrimljenihPodatakaOdWritera = 0;
         IHistorical kanal = Singleton.Instance();
         CollectionDescription cd = new CollectionDescription();
+        int ispisivanjeBrojac = 0;
 
 
 
@@ -146,6 +147,13 @@ namespace DumpingBufferKomponenta
                     brojac = 0;
                     break;
             }
+            ispisivanjeBrojac++;
+            if (ispisivanjeBrojac == 10)
+            {
+                Console.WriteLine("---------------------------------------------------------------");
+                ispisivanjeBrojac = 0;
+            }
+               
 
         }
 
@@ -261,9 +269,8 @@ namespace DumpingBufferKomponenta
                 update = true;
 
             }
-            else
-            {
-                cd.DumpingPropertyCollection.Add(p.Kod, p.Vrijednost);
+            if(!cd.DumpingPropertyCollection.ContainsKey(p.Kod))
+            {   cd.DumpingPropertyCollection.Add(p.Kod, p.Vrijednost);
                 add = true;
 
             }
@@ -306,17 +313,19 @@ namespace DumpingBufferKomponenta
                     {
                         kanal.WriteToHistory(dc);
                         brojacUkupnoPrimljenihPodatakaOdWritera = 0;
+                        cd = new CollectionDescription();
+                        dc = new DeltaCD();
                     }
-                    else
-                    {
-                        brojacUkupnoPrimljenihPodatakaOdWritera = 0;
-                    }
-                    
+                    //ne treba u else-u da setujemo brojacUkupnoPrimljenihPodatakaOdWritera=0 jer zelimo da stignemo
+                    //do broja 20. Isto tako ne prepisujemo objekte zato sto zelimo da se u medjuvremenu postojeci
+                    //sadrzaj update-uje
                 }
                 else
                 {
                     kanal.WriteToHistory(dc);
                     brojacUkupnoPrimljenihPodatakaOdWritera = 0;
+                    cd = new CollectionDescription();
+                    dc = new DeltaCD();
                 }
             }
             brojacKonverzija++;
