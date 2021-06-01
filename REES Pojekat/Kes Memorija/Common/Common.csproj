@@ -46,6 +46,7 @@
     <Compile Include="CollectionDescription.cs" />
     <Compile Include="DeltaCD.cs" />
     <Compile Include="Description.cs" />
+    <Compile Include="IBaza.cs" />
     <Compile Include="IDumpingBuffer.cs" />
     <Compile Include="IHistorical.cs" />
     <Compile Include="IPodatak.cs" />

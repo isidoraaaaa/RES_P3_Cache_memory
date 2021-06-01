@@ -41,6 +41,7 @@ namespace DumpingBufferKomponenta
         IHistorical kanal = Singleton.Instance();
         CollectionDescription cd = new CollectionDescription();
         int ispisivanjeBrojac = 0;
+        int ispisivanjeManuleno = 0;
 
 
 
@@ -217,7 +218,13 @@ namespace DumpingBufferKomponenta
                     Console.WriteLine("Unijeli ste nepostojeci kod");
                     break;
             }
-           
+            ispisivanjeManuleno++;
+            if (ispisivanjeManuleno == 5)
+            {
+                Console.WriteLine("---------------------------------------------------------------");
+                ispisivanjeManuleno = 0;
+            }
+
         }
 
         public void KonverzijaPodatakaUCollectionDescription(Podatak p)
@@ -269,7 +276,7 @@ namespace DumpingBufferKomponenta
                 update = true;
 
             }
-            if(!cd.DumpingPropertyCollection.ContainsKey(p.Kod))
+            else//(!cd.DumpingPropertyCollection.ContainsKey(p.Kod))
             {   cd.DumpingPropertyCollection.Add(p.Kod, p.Vrijednost);
                 add = true;
 
@@ -300,16 +307,16 @@ namespace DumpingBufferKomponenta
                 dc.TransactionId = brojacKonverzija;
                 if (add == true)
                     dc.Add = cd;
-                else
+                else if(update==true)
                     dc.Update = cd;
 
             }
 
-            if (brojacUkupnoPrimljenihPodatakaOdWritera == 10)
+            if (brojacUkupnoPrimljenihPodatakaOdWritera == 10)//10
             {
                 if (dc.Add == null && dc.Update == null)
                 {
-                    if (brojacUkupnoPrimljenihPodatakaOdWritera == 20)
+                    if (brojacUkupnoPrimljenihPodatakaOdWritera == 20)//20
                     {
                         kanal.WriteToHistory(dc);
                         brojacUkupnoPrimljenihPodatakaOdWritera = 0;
@@ -324,7 +331,7 @@ namespace DumpingBufferKomponenta
                 {
                     kanal.WriteToHistory(dc);
                     brojacUkupnoPrimljenihPodatakaOdWritera = 0;
-                    cd = new CollectionDescription();
+                   cd = new CollectionDescription();
                     dc = new DeltaCD();
                 }
             }
