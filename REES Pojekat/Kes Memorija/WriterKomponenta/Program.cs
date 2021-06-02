@@ -91,7 +91,7 @@ namespace WriterKomponenta
             while (true)
             {
                 kanal.automatskiUDumpingBuffer();
-                Thread.Sleep(5000);
+                Thread.Sleep(2000);
             }
         }
         static void Main(string[] args)

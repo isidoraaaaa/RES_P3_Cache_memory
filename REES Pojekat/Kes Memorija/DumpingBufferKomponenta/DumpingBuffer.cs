@@ -312,11 +312,11 @@ namespace DumpingBufferKomponenta
 
             }
 
-            if (brojacUkupnoPrimljenihPodatakaOdWritera == 10)//10
+            if (brojacUkupnoPrimljenihPodatakaOdWritera == 5)//10
             {
                 if (dc.Add == null && dc.Update == null)
                 {
-                    if (brojacUkupnoPrimljenihPodatakaOdWritera == 20)//20
+                    if (brojacUkupnoPrimljenihPodatakaOdWritera == 7)//20
                     {
                         kanal.WriteToHistory(dc);
                         brojacUkupnoPrimljenihPodatakaOdWritera = 0;

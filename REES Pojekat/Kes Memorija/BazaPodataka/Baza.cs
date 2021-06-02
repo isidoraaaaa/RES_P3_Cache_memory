@@ -27,11 +27,11 @@ namespace BazaPodataka
             {
                 try
                 {
-                    list.Add(reader.GetFloat(0));
+                    list.Add(reader.GetDouble(0));
                 }
                 catch (Exception e)
                 {
-                    Console.WriteLine("Usao");
+                   
                     Console.WriteLine(e.Message);
                 }
             }
@@ -50,17 +50,6 @@ namespace BazaPodataka
             command.Parameters.AddWithValue("@code", code);
             command.Parameters.AddWithValue("@vrednost", vrednost);
             command.ExecuteNonQuery();
-
-            //// command.ExecuteNonQuery();
-            //foreach (KeyValuePair<string, double> pair in HistoricalProperty)
-            //{
-            //    SqlCommand command = new SqlCommand(String.Format("INSERT INTO {0} VALUES (@code, @vrednost);", tabela), connection.SqlConnection);
-            //    command.Parameters.AddWithValue("@code", pair.Key);
-            //    command.Parameters.AddWithValue("@vrednost", pair.Value);
-
-            //    command.ExecuteNonQuery();
-
-            //}
 
         }
     }

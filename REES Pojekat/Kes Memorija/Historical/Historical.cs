@@ -15,6 +15,7 @@ namespace Historical
         List<Description> listDescriptions = new List<Description>();
         Baza baza = new Baza();
         Connection c = new Connection();
+
         bool ispravanPodatak1=false;
         bool ispravanPodatak2 = false;
         bool ispravanPodatak3 = false;
@@ -24,20 +25,7 @@ namespace Historical
         {
             if (cd.Add != null)
             {
-                Console.WriteLine("\n");
-                Console.WriteLine("ADD\n");
-                Console.WriteLine("Transaction id -> " + cd.TransactionId + "\n");
-                Console.WriteLine("PROPERTY COLECTION \n");
-                foreach (KeyValuePair<string, double> i in cd.Add.DumpingPropertyCollection)
-                {
-                    Console.WriteLine($"{i.Key} ->  {i.Value}");
-                }
-                Console.WriteLine("\n");
-                Console.WriteLine("DATASET \n");
-                foreach (KeyValuePair<string, int> i in cd.Add.Dataset)
-                {
-                    Console.WriteLine($"{i.Key} ->  {i.Value}");
-                }
+                
 
                 konverzijaULD(cd);
 
@@ -45,20 +33,7 @@ namespace Historical
             }
             else
             {
-                Console.WriteLine("\n");
-                Console.WriteLine("UPDATE\n");
-                Console.WriteLine("Transaction id -> " + cd.TransactionId + "\n");
-                foreach (KeyValuePair<string, double> i in cd.Update.DumpingPropertyCollection)
-                {
-                    Console.WriteLine($"{i.Key} ->  {i.Value}");
-                }
-                Console.WriteLine("\n");
-                Console.WriteLine("DATASET\n");
-                foreach (KeyValuePair<string, int> i in cd.Update.Dataset)
-                {
-                    Console.WriteLine($"{i.Key} ->  {i.Value}");
-                }
-
+            
                 konverzijaULD(cd);
             }
         }
@@ -76,138 +51,145 @@ namespace Historical
                 }
                 description.ListHistoricalPropertys.Add(HistoricalProperty);
                 listDescriptions.Add(description);
-                //Console.WriteLine("\n");
-                //Console.WriteLine($"DESCRIPTION ID -> {description.Id}");
-                //Console.WriteLine("\n");
-                //Console.WriteLine("DATASET");
-                //foreach (KeyValuePair<string, int> pair1 in description.DataSet)
-                //{
-                //    Console.WriteLine($"{pair1.Key} -> {pair1.Value}");
-                //    Console.WriteLine("\n");
-                //}
-                //Console.WriteLine("\n");
-                //Console.WriteLine("HISTORICAL PROPERTY");
-                //foreach (KeyValuePair<string, double> pair2 in HistoricalProperty)
-                //{
-                //    Console.WriteLine($"{pair2.Key} -> {pair2.Value}");
-                //    Console.WriteLine("\n");
-                //}
-                //Console.WriteLine("\n");
-                //Console.WriteLine("LIST OF HISTORICAL PROPERTY");
-                //foreach (Dictionary<string, double> pair1 in description.ListHistoricalPropertys)
-                //{
-                //    foreach (KeyValuePair<string, double> item in pair1)
-                //    {
-                //        Console.WriteLine($"{item.Key} -> {item.Value}");
-                //        Console.WriteLine("\n");
-                //    }
+                
 
-                //}
+                if (c.ProveriKonekciju() == false)
+                {
 
-                //Console.WriteLine("\n");
-                //Console.WriteLine("LIST OF DESCRIPTIONS");
-                //foreach (Description d in listDescriptions)
-                //{
-                //    Console.WriteLine("\n");
-
-                //    Console.WriteLine($"DESCRIPTION ID -> {d.Id}");
-                //    Console.WriteLine("\n");
-                //    foreach (KeyValuePair<string, int> pair1 in d.DataSet)
-                //    {
-                //        Console.WriteLine($"{pair1.Key} -> {pair1.Value}");
-                //        Console.WriteLine("\n");
-                //    }
+                     c.OtvoriRemoteKonekciju();
 
 
-                //    Console.WriteLine("LIST OF HISTORICAL PROPERTY");
-                //    foreach (Dictionary<string, double> pair1 in d.ListHistoricalPropertys)
-                //    {
-                //        foreach (KeyValuePair<string, double> item in pair1)
-                //        {
-                //            Console.WriteLine($"{item.Key} -> {item.Value}");
-                //            Console.WriteLine("\n");
-                //        }
+                }
+                 
+                  
 
-                //    }
+                foreach (KeyValuePair<string, double> pair in HistoricalProperty)
+                {
 
-                //}
-
-              //  if (ProveraPodataka()==true)
-              //  {
-                    if (c.ProveriKonekciju() == false)
+                    if (ProveraDeadband(pair) == true && ProveraPodataka(description.DataSet) == true)
                     {
-                        Console.WriteLine("Ispravna konekcija");
-                        c.OtvoriRemoteKonekciju();
 
-
+                        UpisPodatakaUBazu(pair);
                     }
 
-                    List<double> lista =baza.CitanjePodatakaIzBaze("dataset_1", "CODE_ANALOG");
-                    foreach(double d in lista)
-                    {
-                        Console.WriteLine(d+"\n");
-                    }
-                    
-               // }
+                }
 
             }
             else
             {
                 HistoricalProperty = new Dictionary<string, double>();
-                //description.Id = dc.TransactionId;
-                //description.DataSet = dc.Update.Dataset;
-                //foreach (KeyValuePair<string, double> pair in dc.Update.DumpingPropertyCollection)
-                //{
-                //    HistoricalProperty.Add(pair.Key, pair.Value);
+                description.Id = dc.TransactionId;
+                description.DataSet = dc.Update.Dataset;
+                foreach (KeyValuePair<string, double> pair in dc.Update.DumpingPropertyCollection)
+                {
+                    HistoricalProperty.Add(pair.Key, pair.Value);
 
-                //}
-                //description.ListHistoricalPropertys.Add(HistoricalProperty);
-                //listDescriptions.Add(description);
+                }
+                description.ListHistoricalPropertys.Add(HistoricalProperty);
+                listDescriptions.Add(description);
 
-                //  ProveraPodataka();
+                if (c.ProveriKonekciju() == false)
+                {
+
+                    c.OtvoriRemoteKonekciju();
+
+
+                }
+
+
+
+                foreach (KeyValuePair<string, double> pair in HistoricalProperty)
+                {
+
+                    if (ProveraDeadband(pair) == true && ProveraPodataka(description.DataSet) == true)
+                    {
+
+                        UpisPodatakaUBazu(pair);
+                    }
+
+                }
+
+
 
             }
                 
             
            
         }
-        public bool ProveraPodataka()
+        public bool ProveraPodataka(Dictionary<string,int> dataset)
         {
-
-            foreach(KeyValuePair<string,int> pair in description.DataSet)
+            foreach(KeyValuePair<string,int> pair in dataset)
             {
-                if((pair.Key.Equals("CODE_ANALOG") || pair.Key.Equals("CODE_DIGITAL")) && pair.Value.Equals(1))
+                if ((pair.Key.Equals("CODE_ANALOG") || pair.Key.Equals("CODE_DIGITAL")) && pair.Value.Equals(1))
                 {
-                    ispravanPodatak1 = true;
+                     ispravanPodatak1=true;
                 }
                 if ((pair.Key.Equals("CODE_CUSTOM") || pair.Key.Equals("CODE_LIMITSET")) && pair.Value.Equals(2))
                 {
                     ispravanPodatak2 = true;
+
                 }
-                 if ((pair.Key.Equals("CODE_SINGLENODE") || pair.Key.Equals("CODE_MULTIPLENODE")) && pair.Value.Equals(3))
+                if ((pair.Key.Equals("CODE_SINGLENODE") || pair.Key.Equals("CODE_MULTIPLENODE")) && pair.Value.Equals(3))
                 {
-                    ispravanPodatak3 = true;
+                    ispravanPodatak3=true;
                 }
                 if ((pair.Key.Equals("CODE_CONSUMER") || pair.Key.Equals("CODE_SOURCE")) && pair.Value.Equals(4))
                 {
-                    ispravanPodatak4 = true;
+                   ispravanPodatak4=true;
                 }
 
-               if ((pair.Key.Equals("CODE_MOTION") || pair.Key.Equals("CODE_SENSOR")) && pair.Value.Equals(5))
+                if ((pair.Key.Equals("CODE_MOTION") || pair.Key.Equals("CODE_SENSOR")) && pair.Value.Equals(5))
                 {
                     ispravanPodatak5 = true;
                 }
+            }
+
+            if (ispravanPodatak1 == true || ispravanPodatak2 == true || ispravanPodatak3 == true || ispravanPodatak4 == true || ispravanPodatak5 == true)
+            {
+                ispravanPodatak1 = false;
+                ispravanPodatak2 = false;
+                ispravanPodatak3 = false;
+                ispravanPodatak4 = false;
+                ispravanPodatak5 = false;
+                return true;
 
             }
-            if (ispravanPodatak1 == true && ispravanPodatak2 == true && ispravanPodatak3 == true && ispravanPodatak4 == true && ispravanPodatak5)
-                return true;
             return false;
         }
 
-        public void UpisPodatakaUBazu()
+        public bool ProveraDeadband(KeyValuePair<string,double> pair)
         {
-            foreach (KeyValuePair<string, double> pair in HistoricalProperty)
-            {
+            
+                bool upisivanje  = false;
+                List<double> list = CitanjePodatakaIzBaze(pair.Key);
+                if (list.Count == 0)
+                {
+                    upisivanje = true;
+                }
+                else
+                {
+                    
+                    foreach (double d in list)
+                    {
+                        
+                        if (pair.Value > (d * 0.2))
+                        {
+                            upisivanje = true;
+
+                        }
+
+                    }
+                   
+                    list = new List<double>();
+                }
+                return upisivanje;
+           
+
+        }
+
+        public void UpisPodatakaUBazu(KeyValuePair<string,double> pair)
+        {
+           
                 if (pair.Key.Equals("CODE_ANALOG"))
                 {
                     baza.UpisPodatakaUBazu("dataset_1", pair.Key, pair.Value);
@@ -273,7 +255,79 @@ namespace Historical
 
                 HistoricalProperty = new Dictionary<string, double>();
 
-            }
+   
+
+        }
+
+        public List<double> CitanjePodatakaIzBaze(string code)
+        {
+            List<double> lista = new List<double>();
+
+                if (code.Equals("CODE_ANALOG"))
+                {
+                   lista= baza.CitanjePodatakaIzBaze("dataset_1", code);
+
+                }
+
+                if (code.Equals("CODE_DIGITAL"))
+                {
+                lista = baza.CitanjePodatakaIzBaze("dataset_1", code);
+
+
+                }
+
+                if (code.Equals("CODE_CUSTOM"))
+                {
+                lista = baza.CitanjePodatakaIzBaze("dataset_2", code);
+
+                }
+
+                if (code.Equals("CODE_LIMITSET"))
+                {
+                lista = baza.CitanjePodatakaIzBaze("dataset_2", code);
+
+
+                }
+
+                if (code.Equals("CODE_SINGLENODE"))
+                {
+                lista = baza.CitanjePodatakaIzBaze("dataset_3", code);
+
+                }
+
+                if (code.Equals("CODE_MULTIPLENODE"))
+                {
+                lista = baza.CitanjePodatakaIzBaze("dataset_3", code);
+
+
+                }
+                if (code.Equals("CODE_CONSUMER"))
+                {
+                lista = baza.CitanjePodatakaIzBaze("dataset_4", code);
+
+                }
+
+                if (code.Equals("CODE_SOURCE"))
+                {
+                lista = baza.CitanjePodatakaIzBaze("dataset_4",code);
+
+
+                }
+                if (code.Equals("CODE_MOTION"))
+                {
+                lista = baza.CitanjePodatakaIzBaze("dataset_5",code);
+
+                }
+
+                if (code.Equals("CODE_SENSOR"))
+                {
+                lista = baza.CitanjePodatakaIzBaze("dataset_5", code);
+
+
+                }
+
+            return lista;
+            
 
         }
 
