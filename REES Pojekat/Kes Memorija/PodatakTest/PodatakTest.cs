@@ -1,4 +1,5 @@
 ﻿using Common;
+using Moq;
 using NUnit.Framework;
 using System;
 using System.Collections.Generic;
@@ -11,6 +12,36 @@ namespace PodatakTest
     [TestFixture]
     class PodatakTest
     {
+        IPodatak podatakDobar;
+        IPodatak podatakLos;
+        [SetUp]
+        public void SetUp()
+        {
+            var moq = new Mock<IPodatak>();
+            var moq2 = new Mock<IPodatak>();
+            moq.Setup(p => p.Kod).Returns("CODE_ANALOG");
+            podatakDobar = moq.Object;
+
+            moq2.Setup(p => p.Kod).Returns("neki kod");  
+            podatakLos = moq2.Object;
+        }
+
+   
+
+        [Test]
+        [TestCase(22.3,"06/07/1998")]
+        public void proba(double a,DateTime dt)
+        {
+           Podatak p = new Podatak(podatakDobar.Kod, a, dt);
+           Assert.AreEqual(p.Kod, podatakDobar.Kod);
+           Assert.AreEqual(p.Vrijednost, a);
+           Assert.AreEqual(p.Vrijeme, dt);
+        }
+
+
+       
+      
+
         [Test]
         [TestCase("CODE_ANALOG", 22.5, "06/07/1998")]
         [TestCase("CODE_DIGITAL", 555.3, "06/08/1999")]
@@ -49,12 +80,15 @@ namespace PodatakTest
         [TestCase("hmmm", 222.22, "03/05/1995")]
         public void PodatakSaLosimParamterima(string kod, double vrijednost, DateTime datum)
         {
-            Assert.Throws<ArgumentException>(
+            Assert.Throws<LosKodArgumentException>(
                () =>
                {
                    Podatak p = new Podatak(kod, vrijednost, datum);
                }
                );
         }
+
+
+       
     }
 }

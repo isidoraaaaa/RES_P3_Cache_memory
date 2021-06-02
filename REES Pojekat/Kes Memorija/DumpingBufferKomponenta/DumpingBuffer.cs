@@ -8,9 +8,11 @@ using Common;
 namespace DumpingBufferKomponenta
 
 {
-   
+    public enum KOD { CODE_ANALOG, CODE_DIGITAL, CODE_CUSTOM, CODE_LIMITSET, CODE_SINGLENOE, CODE_MULTIPLENODE, CODE_CONSUMER, CODE_SOURCE, CODE_MOTION , CODE_SENSOR }  
     public class DumpingBuffer : IDumpingBuffer
     {
+
+        public DumpingBuffer() { }
 
         Random r = new Random();
  #region lista kodova
@@ -55,7 +57,7 @@ namespace DumpingBufferKomponenta
             switch (brojac)
             {
                 case 1:
-                    p.Kod = kodAnalog;
+                    p.Kod = KOD.CODE_ANALOG.ToString();
                     vrijednost = random.NextDouble()*(1000.0 - 0.1) + 0.1;
                     vrijednost = (double)System.Math.Round(vrijednost, 2);
                     p.Vrijednost = vrijednost;
@@ -64,7 +66,7 @@ namespace DumpingBufferKomponenta
                     KonverzijaPodatakaUCollectionDescription(p);
                     break;
                 case 2:
-                    p.Kod = kodDigital;       
+                    p.Kod = KOD.CODE_DIGITAL.ToString();      
                     vrijednost = random.NextDouble() * (1000.0 - 0.1) + 0.1;
                     vrijednost = (double)System.Math.Round(vrijednost, 2);
                     p.Vrijednost = vrijednost;
@@ -73,7 +75,7 @@ namespace DumpingBufferKomponenta
                     KonverzijaPodatakaUCollectionDescription(p);
                     break;
                 case 3:
-                    p.Kod = kodCustom;
+                    p.Kod = KOD.CODE_CUSTOM.ToString();
                     vrijednost = random.NextDouble() * (1000.0 - 0.1) + 0.1;
                     vrijednost = (double)System.Math.Round(vrijednost, 2);
                     p.Vrijednost = vrijednost;
@@ -82,7 +84,7 @@ namespace DumpingBufferKomponenta
                     KonverzijaPodatakaUCollectionDescription(p);
                     break;
                 case 4:
-                    p.Kod = kodLimitset;
+                    p.Kod = KOD.CODE_LIMITSET.ToString();
                     vrijednost = random.NextDouble() * (1000.0 - 0.1) + 0.1;
                     vrijednost = (double)System.Math.Round(vrijednost, 2);
                     p.Vrijednost = vrijednost;
@@ -91,7 +93,7 @@ namespace DumpingBufferKomponenta
                     KonverzijaPodatakaUCollectionDescription(p);
                     break;
                 case 5:
-                    p.Kod = kodSinglenoe;
+                    p.Kod = KOD.CODE_SINGLENOE.ToString();
                     vrijednost = random.NextDouble() * (1000.0 - 0.1) + 0.1;
                     vrijednost = (double)System.Math.Round(vrijednost, 2);
                     p.Vrijednost = vrijednost;
@@ -100,7 +102,7 @@ namespace DumpingBufferKomponenta
                     KonverzijaPodatakaUCollectionDescription(p);
                     break;
                 case 6:
-                    p.Kod = kodMultiplenode;
+                    p.Kod = KOD.CODE_MULTIPLENODE.ToString();
                     vrijednost = random.NextDouble() * (1000.0 - 0.1) + 0.1;
                     vrijednost = (double)System.Math.Round(vrijednost, 2);
                     p.Vrijednost = vrijednost;
@@ -109,7 +111,7 @@ namespace DumpingBufferKomponenta
                     KonverzijaPodatakaUCollectionDescription(p);
                     break;
                 case 7:
-                    p.Kod = kodConsumer;
+                    p.Kod = KOD.CODE_CONSUMER.ToString();
                     vrijednost = random.NextDouble() * (1000.0 - 0.1) + 0.1;
                     vrijednost = (double)System.Math.Round(vrijednost, 2);
                     p.Vrijednost = vrijednost;
@@ -118,7 +120,7 @@ namespace DumpingBufferKomponenta
                     KonverzijaPodatakaUCollectionDescription(p);
                     break;
                 case 8:
-                    p.Kod = kodSource;
+                    p.Kod = KOD.CODE_SOURCE.ToString();
                     vrijednost = random.NextDouble() * (1000.0 - 0.1) + 0.1;
                     vrijednost = (double)System.Math.Round(vrijednost, 2);
                     p.Vrijednost = vrijednost;
@@ -127,7 +129,7 @@ namespace DumpingBufferKomponenta
                     KonverzijaPodatakaUCollectionDescription(p);
                     break;
                 case 9:
-                    p.Kod = kodMotion;
+                    p.Kod = KOD.CODE_MOTION.ToString();
                     vrijednost = random.NextDouble() * (1000.0 - 0.1) + 0.1;
                     vrijednost = (double)System.Math.Round(vrijednost, 2);
                     p.Vrijednost = vrijednost;
@@ -136,7 +138,7 @@ namespace DumpingBufferKomponenta
                     KonverzijaPodatakaUCollectionDescription(p);
                     break;
                 case 10:
-                    p.Kod = kodSensor;
+                    p.Kod = KOD.CODE_SENSOR.ToString();
                     vrijednost = random.NextDouble() * (1000.0 - 0.1) + 0.1;
                     vrijednost = (double)System.Math.Round(vrijednost, 2);
                     p.Vrijednost = vrijednost;
@@ -146,7 +148,8 @@ namespace DumpingBufferKomponenta
                     break;
                 default:
                     brojac = 0;
-                    break;
+                    throw new LosKodArgumentException();
+                    
             }
             ispisivanjeBrojac++;
             if (ispisivanjeBrojac == 10)
@@ -216,7 +219,9 @@ namespace DumpingBufferKomponenta
                     break;
                 default:
                     Console.WriteLine("Unijeli ste nepostojeci kod");
-                    break;
+                    throw new LosKodArgumentException();
+
+
             }
             ispisivanjeManuleno++;
             if (ispisivanjeManuleno == 5)

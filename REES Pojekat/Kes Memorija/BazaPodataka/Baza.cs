@@ -39,11 +39,8 @@ namespace BazaPodataka
             return list;
 
         }
-        
-  
 
-
-   
+ 
         public void UpisPodatakaUBazu(string tabela,string code,double vrednost)
         {
             SqlCommand command = new SqlCommand(String.Format("INSERT INTO {0} VALUES (@code, @vrednost);", tabela), connection.SqlConnection);

@@ -7,23 +7,13 @@ using System.Threading.Tasks;
 
 namespace Common
 {
+    public enum NazivKoda { CODE_ANALOG, CODE_DIGITAL, CODE_CUSTOM, CODE_LIMITSET, CODE_SINGLENOE, CODE_MULTIPLENODE, CODE_CONSUMER, CODE_SOURCE, CODE_MOTION, CODE_SENSOR }
     [DataContract]
     public class Podatak : IPodatak
     {
         string kod;
         double vrijednost;
         DateTime vrijeme;
-
-        string kodAnalog = "CODE_ANALOG";
-        string kodDigital = "CODE_DIGITAL";
-        string kodCustom = "CODE_CUSTOM";
-        string kodLimitset = "CODE_LIMITSET";
-        string kodSinglenoe = "CODE_SINGLENOE";
-        string kodMultiplenode = "CODE_MULTIPLENODE";
-        string kodConsumer = "CODE_CONSUMER";
-        string kodSource = "CODE_SOURCE";
-        string kodMotion = "CODE_MOTION";
-        string kodSensor = "CODE_SENSOR";
 
         [DataMember]
         public string Kod { get { return kod; } set { kod = value; } }
@@ -42,10 +32,18 @@ namespace Common
 
         public Podatak(string kod, double vrijednost, DateTime vrijeme)
         {
-            if (kod.ToUpper() != kodAnalog && kod.ToUpper() != kodDigital && kod.ToUpper() != kodCustom && kod.ToUpper() != kodLimitset &&
-              kod.ToUpper() != kodSinglenoe && kod.ToUpper() != kodMultiplenode && kod.ToUpper() != kodConsumer && kod.ToUpper() != kodSource && kod.ToUpper() != kodMotion && kod.ToUpper() != kodSensor)
+            if (kod.ToUpper() != NazivKoda.CODE_ANALOG.ToString()       &&
+                kod.ToUpper() != NazivKoda.CODE_DIGITAL.ToString()      &&
+                kod.ToUpper() != NazivKoda.CODE_CUSTOM.ToString()       &&
+                kod.ToUpper() != NazivKoda.CODE_LIMITSET.ToString()     &&
+                kod.ToUpper() != NazivKoda.CODE_SINGLENOE.ToString()    &&
+                kod.ToUpper() != NazivKoda.CODE_MULTIPLENODE.ToString() &&
+                kod.ToUpper() != NazivKoda.CODE_CONSUMER.ToString()     &&
+                kod.ToUpper() != NazivKoda.CODE_SOURCE.ToString()       &&
+                kod.ToUpper() != NazivKoda.CODE_MOTION.ToString()       &&
+                kod.ToUpper() != NazivKoda.CODE_SENSOR.ToString())
             {
-                throw new ArgumentException("Pogresan kod!");
+                throw new LosKodArgumentException();
             }
             else
             {

@@ -18,7 +18,6 @@ namespace Historical
                 server.AddServiceEndpoint(typeof(IHistorical), new NetTcpBinding(), new Uri("net.tcp://localhost:8000/IHistorical"));
                 server.Open();
                 Console.WriteLine("Historical uspesno podignut");
-                
             }
             catch (Exception e)
             {

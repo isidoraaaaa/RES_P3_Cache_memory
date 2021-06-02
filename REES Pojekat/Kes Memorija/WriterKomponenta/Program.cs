@@ -116,7 +116,7 @@ namespace WriterKomponenta
                 Console.WriteLine("Konekcija nije uspjesno uspostavljena sa serverom.Sacekaj da se prvo podigne server pa probaj ponovo.");
                 Console.ReadLine();
             }
-            Console.ReadLine();
+             
         }
     }
 }
