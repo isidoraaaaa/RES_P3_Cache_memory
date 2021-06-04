@@ -11,11 +11,11 @@ namespace Common
     public interface IHistorical
     {
         [OperationContract]
-        void WriteToHistory(DeltaCD cd);
+        bool WriteToHistory(DeltaCD cd);
         [OperationContract]
         List<double> CitanjePodatakaIzBaze(string code);
 
-        void konverzijaULD(DeltaCD dc);
+        bool konverzijaULD(DeltaCD dc);
         bool ProveraPodataka(Dictionary<string, int> dataset);
         bool ProveraDeadband(KeyValuePair<string, double> pair);
         void UpisPodatakaUBazu(KeyValuePair<string, double> pair);

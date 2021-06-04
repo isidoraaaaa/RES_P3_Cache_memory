@@ -5,12 +5,14 @@ using System.Text;
 using System.Threading.Tasks;
 using System.ServiceModel;
 using Common;
+using System.Diagnostics.CodeAnalysis;
+
 namespace DumpingBufferKomponenta
 {
     public class Program
     {
-       
 
+        [ExcludeFromCodeCoverage]
         static void Main(string[] args)
         {
             

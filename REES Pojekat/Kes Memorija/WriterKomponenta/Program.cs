@@ -40,8 +40,8 @@ namespace WriterKomponenta
                     case "CODE_LIMITSET":
                         kod = "CODE_LIMITSET";
                         break;
-                    case "CODE_SINGLENOE":
-                        kod = "CODE_SINGLENOE";
+                    case "CODE_SINGLENODE":
+                        kod = "CODE_SINGLENODE";
                         break;
                     case "CODE_MULTIPLENODE":
                         kod = "CODE_MULTIPLENODE";

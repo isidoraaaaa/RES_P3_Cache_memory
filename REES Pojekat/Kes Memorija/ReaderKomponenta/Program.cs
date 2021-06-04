@@ -46,7 +46,7 @@ namespace ReaderKomponenta
                                 string kod = Console.ReadLine();
                                 if (kod.ToUpper().Trim() == "CODE_ANALOG" || kod.ToUpper().Trim() == "CODE_DIGITAL" ||
                                     kod.ToUpper().Trim() == "CODE_CUSTOM" || kod.ToUpper().Trim() == "CODE_LIMITSET" ||
-                                    kod.ToUpper().Trim() == "CODE_SINGLENOE" || kod.ToUpper().Trim() == "CODE_MULTIPLENODE" ||
+                                    kod.ToUpper().Trim() == "CODE_SINGLENODE" || kod.ToUpper().Trim() == "CODE_MULTIPLENODE" ||
                                     kod.ToUpper().Trim() == "CODE_CONSUMER" || kod.ToUpper().Trim() == "CODE_SOURCE" ||
                                     kod.ToUpper().Trim() == "CODE_MOTION" || kod.ToUpper().Trim() == "CODE_SENSOR")
                                 {

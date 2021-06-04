@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Common
 {
-    public enum NazivKoda { CODE_ANALOG, CODE_DIGITAL, CODE_CUSTOM, CODE_LIMITSET, CODE_SINGLENOE, CODE_MULTIPLENODE, CODE_CONSUMER, CODE_SOURCE, CODE_MOTION, CODE_SENSOR }
+    public enum NazivKoda { CODE_ANALOG, CODE_DIGITAL, CODE_CUSTOM, CODE_LIMITSET, CODE_SINGLENODE, CODE_MULTIPLENODE, CODE_CONSUMER, CODE_SOURCE, CODE_MOTION, CODE_SENSOR }
     [DataContract]
     public class Podatak : IPodatak
     {
@@ -36,7 +36,7 @@ namespace Common
                 kod.ToUpper() != NazivKoda.CODE_DIGITAL.ToString()      &&
                 kod.ToUpper() != NazivKoda.CODE_CUSTOM.ToString()       &&
                 kod.ToUpper() != NazivKoda.CODE_LIMITSET.ToString()     &&
-                kod.ToUpper() != NazivKoda.CODE_SINGLENOE.ToString()    &&
+                kod.ToUpper() != NazivKoda.CODE_SINGLENODE.ToString()    &&
                 kod.ToUpper() != NazivKoda.CODE_MULTIPLENODE.ToString() &&
                 kod.ToUpper() != NazivKoda.CODE_CONSUMER.ToString()     &&
                 kod.ToUpper() != NazivKoda.CODE_SOURCE.ToString()       &&

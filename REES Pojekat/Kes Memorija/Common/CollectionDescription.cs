@@ -23,5 +23,7 @@ namespace Common
         public Dictionary<string, double> DumpingPropertyCollection { get => dumpingPropertyCollection; set => dumpingPropertyCollection = value; }
         [DataMember]
         public Dictionary<string, int> Dataset { get => dataset; set => dataset = value; }
+
+        
     }
 }

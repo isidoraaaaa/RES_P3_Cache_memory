@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.ServiceModel;
 using System.Text;
@@ -8,25 +9,14 @@ using Common;
 namespace DumpingBufferKomponenta
 
 {
-    public enum KOD { CODE_ANALOG, CODE_DIGITAL, CODE_CUSTOM, CODE_LIMITSET, CODE_SINGLENOE, CODE_MULTIPLENODE, CODE_CONSUMER, CODE_SOURCE, CODE_MOTION , CODE_SENSOR }  
+    public enum KOD { CODE_ANALOG, CODE_DIGITAL, CODE_CUSTOM, CODE_LIMITSET, CODE_SINGLENODE, CODE_MULTIPLENODE, CODE_CONSUMER, CODE_SOURCE, CODE_MOTION , CODE_SENSOR }  
     public class DumpingBuffer : IDumpingBuffer
     {
 
         public DumpingBuffer() { }
 
         Random r = new Random();
- #region lista kodova
-        string kodAnalog = "CODE_ANALOG";
-        string kodDigital = "CODE_DIGITAL";
-        string kodCustom = "CODE_CUSTOM";
-        string kodLimitset = "CODE_LIMITSET";
-        string kodSinglenoe = "CODE_SINGLENOE";
-        string kodMultiplenode = "CODE_MULTIPLENODE";
-        string kodConsumer = "CODE_CONSUMER";
-        string kodSource = "CODE_SOURCE";
-        string kodMotion = "CODE_MOTION";
-        string kodSensor = "CODE_SENSOR";
- #endregion
+
 
         double vrijednost = 0.0;
         Random random = new Random();
@@ -51,6 +41,7 @@ namespace DumpingBufferKomponenta
 
         //funkcija za svaku vrijednsot brojaca ima odredjeno koji kod salje, dok je vrijednsot koju salje 
         //random broj koji se izracunava po odredjenom formuli
+        [ExcludeFromCodeCoverage]
         public void automatskiUDumpingBuffer()
         {
             int brojac = r.Next(1, 10);
@@ -93,7 +84,7 @@ namespace DumpingBufferKomponenta
                     KonverzijaPodatakaUCollectionDescription(p);
                     break;
                 case 5:
-                    p.Kod = KOD.CODE_SINGLENOE.ToString();
+                    p.Kod = KOD.CODE_SINGLENODE.ToString();
                     vrijednost = random.NextDouble() * (1000.0 - 0.1) + 0.1;
                     vrijednost = (double)System.Math.Round(vrijednost, 2);
                     p.Vrijednost = vrijednost;
@@ -162,58 +153,59 @@ namespace DumpingBufferKomponenta
         }
 
         //manuelni unos poredi kakav kod je prosledjen i na osnovu nejga ispisuje  sta je poslato i da li je ispravno
+        [ExcludeFromCodeCoverage]
         public void manuelnoUDumpingBuffer(Podatak p)
         {
            
             switch (p.Kod.ToUpper())
             {
                 case "CODE_ANALOG":
-                    p.Kod = "CODE_ANALOG";
+                    p.Kod = KOD.CODE_ANALOG.ToString();
                     Console.WriteLine(p);
                     KonverzijaPodatakaUCollectionDescription(p);
                     break;
                 case "CODE_DIGITAL":
-                    p.Kod ="CODE_DIGITAL";
+                    p.Kod =KOD.CODE_DIGITAL.ToString();
                     Console.WriteLine(p);
                     KonverzijaPodatakaUCollectionDescription(p);
                     break;
                 case "CODE_CUSTOM":
-                    p.Kod = "CODE_CUSTOM";
+                    p.Kod = KOD.CODE_CUSTOM.ToString();
                     Console.WriteLine(p);
                     KonverzijaPodatakaUCollectionDescription(p);
                     break;
                 case "CODE_LIMITSET":
-                    p.Kod = "CODE_LIMITSET";
+                    p.Kod = KOD.CODE_LIMITSET.ToString();
                     Console.WriteLine(p);
                     KonverzijaPodatakaUCollectionDescription(p);
                     break;
-                case "CODE_SINGLENOE":
-                    p.Kod = "CODE_SINGLENOE";
+                case "CODE_SINGLENODE":
+                    p.Kod = KOD.CODE_SINGLENODE.ToString();
                     Console.WriteLine(p);
                     KonverzijaPodatakaUCollectionDescription(p);
                     break;
                 case "CODE_MULTIPLENODE":
-                    p.Kod = "CODE_MULTIPLENODE";
+                    p.Kod = KOD.CODE_MULTIPLENODE.ToString();
                     Console.WriteLine(p);
                     KonverzijaPodatakaUCollectionDescription(p);
                     break;
                 case "CODE_CONSUMER":
-                    p.Kod = "CODE_CONSUMER";
+                    p.Kod = KOD.CODE_CONSUMER.ToString();
                     Console.WriteLine(p);
                     KonverzijaPodatakaUCollectionDescription(p);
                     break;
                 case "CODE_SOURCE":
-                    p.Kod = "CODE_SOURCE";
+                    p.Kod = KOD.CODE_SOURCE.ToString();
                     Console.WriteLine(p);
                     KonverzijaPodatakaUCollectionDescription(p);
                     break;
                 case "CODE_MOTION":
-                    p.Kod = "CODE_MOTION";
+                    p.Kod = KOD.CODE_MOTION.ToString();
                     Console.WriteLine(p);
                     KonverzijaPodatakaUCollectionDescription(p);
                     break;
                 case "CODE_SENSOR":
-                    p.Kod = "CODE_SENSOR";
+                    p.Kod = KOD.CODE_SENSOR.ToString();
                     Console.WriteLine(p);
                     KonverzijaPodatakaUCollectionDescription(p);
                     break;
@@ -228,10 +220,12 @@ namespace DumpingBufferKomponenta
             {
                 Console.WriteLine("---------------------------------------------------------------");
                 ispisivanjeManuleno = 0;
+               
             }
 
         }
 
+        [ExcludeFromCodeCoverage]
         public void KonverzijaPodatakaUCollectionDescription(Podatak p)
         {
             
@@ -243,34 +237,34 @@ namespace DumpingBufferKomponenta
             switch (p.Kod)
             {
                 case "CODE_ANALOG":
-                    cd.Dataset[kodAnalog] = 1;
+                    cd.Dataset[KOD.CODE_ANALOG.ToString()] = 1;
                     break;
                 case "CODE_DIGITAL":
-                    cd.Dataset[kodDigital] = 1;
+                    cd.Dataset[KOD.CODE_DIGITAL.ToString()] = 1;
                     break;
                 case "CODE_CUSTOM":
-                    cd.Dataset[kodCustom] = 2;
+                    cd.Dataset[KOD.CODE_CUSTOM.ToString()] = 2;
                     break;
                 case "CODE_LIMITSET":
-                    cd.Dataset[kodLimitset] = 2;
+                    cd.Dataset[KOD.CODE_LIMITSET.ToString()] = 2;
                     break;
-                case "CODE_SINGLENOE":
-                    cd.Dataset[kodSinglenoe] = 3;
+                case "CODE_SINGLENODE":
+                    cd.Dataset[KOD.CODE_SINGLENODE.ToString()] = 3;
                     break;
                 case "CODE_MULTIPLENODE":
-                    cd.Dataset[kodMultiplenode] = 3;
+                    cd.Dataset[KOD.CODE_MULTIPLENODE.ToString()] = 3;
                     break;
                 case "CODE_CONSUMER":
-                    cd.Dataset[kodConsumer] = 4;
+                    cd.Dataset[KOD.CODE_CONSUMER.ToString()] = 4;
                     break;
                 case "CODE_SOURCE":
-                    cd.Dataset[kodSource] = 4;
+                    cd.Dataset[KOD.CODE_SOURCE.ToString()] = 4;
                     break;
                 case "CODE_MOTION":
-                    cd.Dataset[kodMotion] = 5;
+                    cd.Dataset[KOD.CODE_MOTION.ToString()] = 5;
                     break;
                 case "CODE_SENSOR":
-                    cd.Dataset[kodSensor] = 5;
+                    cd.Dataset[KOD.CODE_SENSOR.ToString()] = 5;
                     break;
 
             }
