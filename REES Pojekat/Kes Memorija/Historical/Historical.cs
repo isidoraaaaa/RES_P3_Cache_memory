@@ -262,6 +262,54 @@ namespace Historical
 
         }
 
+
+        public List<double> citanjeZaDatum(string kod,string tabela,string od,string doo)
+        {
+            List<double> lista = new List<double>();
+            if (kod.ToUpper().Equals("CODE_ANALOG"))
+            {
+                lista = baza.citanjePodatakaSaDatumom(od, doo, kod, tabela);
+            }
+            if (kod.ToUpper().Equals("CODE_DIGITAL"))
+            {
+                lista = baza.citanjePodatakaSaDatumom(od, doo, kod, tabela);
+            }
+            if (kod.ToUpper().Equals("CODE_CUSTOM"))
+            {
+                lista = baza.citanjePodatakaSaDatumom(od, doo, kod, tabela);
+            }
+            if (kod.ToUpper().Equals("CODE_LIMITSET"))
+            {
+                lista = baza.citanjePodatakaSaDatumom(od, doo, kod, tabela);
+            }
+            if (kod.ToUpper().Equals("CODE_SINGLENODE"))
+            {
+                lista = baza.citanjePodatakaSaDatumom(od, doo, kod, tabela);
+            }
+            if (kod.ToUpper().Equals("CODE_MULTIPLENODE"))
+            {
+                lista = baza.citanjePodatakaSaDatumom(od, doo, kod, tabela);
+            }
+            if (kod.ToUpper().Equals("CODE_CONSUMER"))
+            {
+                lista = baza.citanjePodatakaSaDatumom(od, doo, kod, tabela);
+            }
+            if (kod.ToUpper().Equals("CODE_SOURCE"))
+            {
+                lista = baza.citanjePodatakaSaDatumom(od, doo, kod, tabela);
+            }
+            if (kod.ToUpper().Equals("CODE_MOTION"))
+            {
+                lista = baza.citanjePodatakaSaDatumom(od, doo, kod, tabela);
+            }
+            if (kod.ToUpper().Equals("CODE_SENSOR"))
+            {
+                lista = baza.citanjePodatakaSaDatumom(od, doo, kod, tabela);
+            }
+
+
+            return lista;
+        }
        
     }
 }

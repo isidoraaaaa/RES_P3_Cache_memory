@@ -40,6 +40,34 @@ namespace BazaPodataka
 
         }
 
+        public List<double> citanjePodatakaSaDatumom(string od,string doo,string kod,string tabela)
+        {
+            List<double> lista = new List<double>();
+            SqlCommand komanda = new SqlCommand(String.Format("SELECT vrednost FROM {0} WHERE code = @code AND vreme BETWEEN @od and @do", tabela),connection.SqlConnection);
+            komanda.Parameters.AddWithValue("@code", kod);
+            komanda.Parameters.AddWithValue("@od", od);
+            komanda.Parameters.AddWithValue("@do", doo);
+
+
+            IDataReader reader = komanda.ExecuteReader();
+
+            while (reader.Read())
+            {
+                try
+                {
+                    lista.Add(reader.GetDouble(0));
+                }
+                catch (Exception e)
+                {
+
+                    Console.WriteLine(e.Message);
+                }
+            }
+            reader.Close();
+
+
+            return lista;
+        }
  
         public void UpisPodatakaUBazu(string tabela,string code,double vrednost,DateTime vreme)
         {

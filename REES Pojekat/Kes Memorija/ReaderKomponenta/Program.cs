@@ -24,6 +24,7 @@ namespace ReaderKomponenta
                 Console.WriteLine("Reader uspjesno povezan sa Historicalom!");
                 List<double> opcija1 = new List<double>();
                 List<double> opcija2 = new List<double>();
+                List<double> opcija3 = new List<double>();
  
  
                 Console.WriteLine("Izaberite kriterijum ispisa podataka");
@@ -188,7 +189,168 @@ namespace ReaderKomponenta
                                 break;
                             case 3:
                                 //prikazuje one kodove koji odgovaraju vremenskom intervalu upisa koji je unesen
-
+                                Console.WriteLine("Izaberite u kom vremenskom intervalu zelite da prikazete upisane podatke");
+                                string period = Console.ReadLine(); //mora biti u formatu yyyy-MM-dd
+                                string []dio = period.Split(' ');
+                                Console.WriteLine("Unesite kod:");
+                                string kood = Console.ReadLine();
+                                switch (kood.ToUpper())
+                                {
+                                    case "CODE_ANALOG":
+                                       opcija3 = kanal.citanjeZaDatum(kood, "dataset_1", dio[0], dio[1]);
+                                        if (opcija3.Count > 0)
+                                        {
+                                            Console.WriteLine("Kodovi koji zadovoljavaju kriterijum:");
+                                            foreach (var item in opcija3)
+                                            {
+                                                Console.WriteLine($"CODE_ANALOG, vrijednost = {item}");
+                                            }
+                                        }
+                                        else
+                                        {
+                                            Console.WriteLine("Trenutno nema tog koda u bazi!");
+                                        }
+                                        break;
+                                    case "CODE_DIGITAL":
+                                        opcija3 = kanal.citanjeZaDatum(kood, "dataset_1", dio[0], dio[1]);
+                                        if (opcija3.Count > 0)
+                                        {
+                                            Console.WriteLine("Kodovi koji zadovoljavaju kriterijum:");
+                                            foreach (var item in opcija3)
+                                            {
+                                                Console.WriteLine($"CODE_DIGITAL, vrijednost = {item}");
+                                            }
+                                        }
+                                        else
+                                        {
+                                            Console.WriteLine("Trenutno nema tog koda u bazi!");
+                                        }
+                                        break;
+                                    case "CODE_CUSTOM":
+                                        opcija3 = kanal.citanjeZaDatum(kood, "dataset_2", dio[0], dio[1]);
+                                        if (opcija3.Count > 0)
+                                        {
+                                            Console.WriteLine("Kodovi koji zadovoljavaju kriterijum:");
+                                            foreach (var item in opcija3)
+                                            {
+                                                Console.WriteLine($"CODE_CUSTOM, vrijednost = {item}");
+                                            }
+                                        }
+                                        else
+                                        {
+                                            Console.WriteLine("Trenutno nema tog koda u bazi!");
+                                        }
+                                        break;
+                                    case "CODE_LIMITSET":
+                                        opcija3 = kanal.citanjeZaDatum(kood, "dataset_2", dio[0], dio[1]);
+                                        if (opcija3.Count > 0)
+                                        {
+                                            Console.WriteLine("Kodovi koji zadovoljavaju kriterijum:");
+                                            foreach (var item in opcija3)
+                                            {
+                                                Console.WriteLine($"CODE_LIMITSET, vrijednost = {item}");
+                                            }
+                                        }
+                                        else
+                                        {
+                                            Console.WriteLine("Trenutno nema tog koda u bazi!");
+                                        }
+                                        break;
+                                    case "CODE_SINGLENODE":
+                                        opcija3 = kanal.citanjeZaDatum(kood, "dataset_3", dio[0], dio[1]);
+                                     
+                                        if (opcija3.Count > 0)
+                                        {
+                                            Console.WriteLine("Kodovi koji zadovoljavaju kriterijum:");
+                                            foreach (var item in opcija3)
+                                            {
+                                                Console.WriteLine($"CODE_SINGLENODE, vrijednost = {item}");
+                                            }
+                                        }
+                                        else
+                                        {
+                                            Console.WriteLine("Trenutno nema tog koda u bazi!");
+                                        }
+                                        break;
+                                    case "CODE_MULTIPLENODE":
+                                        opcija3 = kanal.citanjeZaDatum(kood, "dataset_3", dio[0], dio[1]);
+                                        if (opcija3.Count > 0)
+                                        {
+                                            Console.WriteLine("Kodovi koji zadovoljavaju kriterijum:");
+                                            foreach (var item in opcija3)
+                                            {
+                                                Console.WriteLine($"CODE_MULTIPLENODE, vrijednost = {item}");
+                                            }
+                                        }
+                                        else
+                                        {
+                                            Console.WriteLine("Trenutno nema tog koda u bazi!");
+                                        }
+                                        break;
+                                    case "CODE_CONSUMER":
+                                        opcija3 = kanal.citanjeZaDatum(kood, "dataset_4", dio[0], dio[1]);
+                                        if (opcija3.Count > 0)
+                                        {
+                                            Console.WriteLine("Kodovi koji zadovoljavaju kriterijum:");
+                                            foreach (var item in opcija3)
+                                            {
+                                                Console.WriteLine($"CODE_CONSUMER, vrijednost = {item}");
+                                            }
+                                        }
+                                        else
+                                        {
+                                            Console.WriteLine("Trenutno nema tog koda u bazi!");
+                                        }
+                                        break;
+                                    case "CODE_SOURCE":
+                                        opcija3 = kanal.citanjeZaDatum(kood, "dataset_4", dio[0], dio[1]);
+                                        if (opcija3.Count > 0)
+                                        {
+                                            Console.WriteLine("Kodovi koji zadovoljavaju kriterijum:");
+                                            foreach (var item in opcija3)
+                                            {
+                                                Console.WriteLine($"CODE_SOURCE, vrijednost = {item}");
+                                            }
+                                        }
+                                        else
+                                        {
+                                            Console.WriteLine("Trenutno nema tog koda u bazi!");
+                                        }
+                                        break;
+                                    case "CODE_MOTION":
+                                        opcija3 = kanal.citanjeZaDatum(kood, "dataset_5", dio[0], dio[1]);
+                                        if (opcija3.Count > 0)
+                                        {
+                                            Console.WriteLine("Kodovi koji zadovoljavaju kriterijum:");
+                                            foreach (var item in opcija3)
+                                            {
+                                                Console.WriteLine($"CODE_MOTION, vrijednost = {item}");
+                                            }
+                                        }
+                                        else
+                                        {
+                                            Console.WriteLine("Trenutno nema tog koda u bazi!");
+                                        }
+                                        break;
+                                    case "CODE_SENSOR":
+                                        opcija3 = kanal.citanjeZaDatum(kood, "dataset_5", dio[0], dio[1]);
+                                        if (opcija3.Count > 0)
+                                        {
+                                            Console.WriteLine("Kodovi koji zadovoljavaju kriterijum:");
+                                            foreach (var item in opcija3)
+                                            {
+                                                Console.WriteLine($"CODE_SENSOR, vrijednost = {item}");
+                                            }
+                                        }
+                                        else
+                                        {
+                                            Console.WriteLine("Trenutno nema tog koda u bazi!");
+                                        }
+                                        break;
+                                    default:
+                                        Console.WriteLine("Unijeli ste nepostojeci kod!");
+                                        break;
+                                }
                                 break;
                             default:
                                 break;
@@ -208,9 +370,10 @@ namespace ReaderKomponenta
 
                  
             }
-            catch (Exception)
+            catch (Exception e)
             {
                 Console.WriteLine("Konekcija nije uspjesno uspostavljena sa serverom.Sacekaj da se prvo podigne server pa probaj ponovo.");
+                Console.WriteLine(e.Message);
                 Console.ReadLine();
             }
             Console.ReadLine();

@@ -217,22 +217,100 @@ namespace HistoricalTest
             dcd.TransactionId = 1;
             Assert.IsFalse(h.WriteToHistory(dcd));
         }
-        [Test]
-        public void konverzijaULDDFalseTest()
-        {
-            CollectionDescription cd = new CollectionDescription();
-            cd.Id = 1;
-            cd.DumpingPropertyCollection["CODE_ANALOG"] = 124;
-            cd.Dataset["CODE_ANALOG"] = 1;
-            DeltaCD dcd = new DeltaCD();
-            dcd.Add = null;
-            dcd.Update = null;
-            dcd.Update = cd;
-            dcd.TransactionId = 1;
-            Assert.IsFalse(h.konverzijaULD(dcd));
-        }
+        //[Test]
+        //public void konverzijaULDDFalseTest()
+        //{
+        //    CollectionDescription cd = new CollectionDescription();
+        //    cd.Id = 1;
+        //    cd.DumpingPropertyCollection["CODE_ANALOG"] = 124;
+        //    cd.Dataset["CODE_ANALOG"] = 1;
+        //    DeltaCD dcd = new DeltaCD();
+        //    dcd.Add = null;
+        //    dcd.Update = null;
+        //    dcd.Update = cd;
+        //    dcd.TransactionId = 1;
+        //    Assert.IsFalse(h.konverzijaULD(dcd));
+        //}
 
         //ARGUMENT NULL/DOBAR, dodati custom excepton
+
+        [Test]
+        public void upisDatum1()
+        {
+            List<double> lista = new List<double>();
+            lista = h.citanjeZaDatum("CODE_DIGITAL", "dataset_1", "2021-06-03", "2021-06-04");
+            Assert.AreEqual(lista, h.citanjeZaDatum("CODE_DIGITAL", "dataset_1", "2021-06-03", "2021-06-04"));
+        }
+
+        [Test]
+        public void upisDatum2()
+        {
+            List<double> lista = new List<double>();
+            lista = h.citanjeZaDatum("CODE_ANALOG", "dataset_1", "2021-06-03", "2021-06-04");
+            Assert.AreEqual(lista, h.citanjeZaDatum("CODE_ANALOG", "dataset_1", "2021-06-03", "2021-06-04"));
+        }
+
+        [Test]
+        public void upisDatum3()
+        {
+            List<double> lista = new List<double>();
+            lista = h.citanjeZaDatum("CODE_CUSTOM", "dataset_2", "2021-06-03", "2021-06-04");
+            Assert.AreEqual(lista, h.citanjeZaDatum("CODE_CUSTOM", "dataset_2", "2021-06-03", "2021-06-04"));
+        }
+
+        [Test]
+        public void upisDatum4()
+        {
+            List<double> lista = new List<double>();
+            lista = h.citanjeZaDatum("CODE_LIMITSET", "dataset_2", "2021-06-03", "2021-06-04");
+            Assert.AreEqual(lista, h.citanjeZaDatum("CODE_LIMITSET", "dataset_2", "2021-06-03", "2021-06-04"));
+        }
+
+        [Test]
+        public void upisDatum5()
+        {
+            List<double> lista = new List<double>();
+            lista = h.citanjeZaDatum("CODE_SINGLENODE", "dataset_3", "2021-06-03", "2021-06-04");
+            Assert.AreEqual(lista, h.citanjeZaDatum("CODE_SINGLENODE", "dataset_3", "2021-06-03", "2021-06-04"));
+        }
+
+        [Test]
+        public void upisDatum6()
+        {
+            List<double> lista = new List<double>();
+            lista = h.citanjeZaDatum("CODE_MULTIPLENODE", "dataset_3", "2021-06-03", "2021-06-04");
+            Assert.AreEqual(lista, h.citanjeZaDatum("CODE_MULTIPLENODE", "dataset_3", "2021-06-03", "2021-06-04"));
+        }
+
+        [Test]
+        public void upisDatum7()
+        {
+            List<double> lista = new List<double>();
+            lista = h.citanjeZaDatum("CODE_CONSUMER", "dataset_4", "2021-06-03", "2021-06-04");
+            Assert.AreEqual(lista, h.citanjeZaDatum("CODE_CONSUMER", "dataset_4", "2021-06-03", "2021-06-04"));
+        }
+
+        [Test]
+        public void upisDatum8()
+        {
+            List<double> lista = new List<double>();
+            lista = h.citanjeZaDatum("CODE_SOURCE", "dataset_4", "2021-06-03", "2021-06-04");
+            Assert.AreEqual(lista, h.citanjeZaDatum("CODE_SOURCE", "dataset_4", "2021-06-03", "2021-06-04"));
+        }
+        [Test]
+        public void upisDatum9()
+        {
+            List<double> lista = new List<double>();
+            lista = h.citanjeZaDatum("CODE_MOTION", "dataset_5", "2021-06-03", "2021-06-04");
+            Assert.AreEqual(lista, h.citanjeZaDatum("CODE_MOTION", "dataset_5", "2021-06-03", "2021-06-04"));
+        }
+        [Test]
+        public void upisDatum10()
+        {
+            List<double> lista = new List<double>();
+            lista = h.citanjeZaDatum("CODE_SENSOR", "dataset_5", "2021-06-03", "2021-06-04");
+            Assert.AreEqual(lista, h.citanjeZaDatum("CODE_SENSOR", "dataset_5", "2021-06-03", "2021-06-04"));
+        }
 
         [Test]
         public void proveraPodatakaTrueTest()
