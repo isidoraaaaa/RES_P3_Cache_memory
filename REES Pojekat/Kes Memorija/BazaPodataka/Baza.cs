@@ -71,7 +71,7 @@ namespace BazaPodataka
  
         public void UpisPodatakaUBazu(string tabela,string code,double vrednost,DateTime vreme)
         {
-            SqlCommand command = new SqlCommand(String.Format("INSERT INTO {0} VALUES (@code, @vrednost,@vreme);", tabela), connection.SqlConnection);
+            SqlCommand command = new SqlCommand(String.Format("INSERT INTO {0} VALUES (@vrednost, @code,@vreme);", tabela), connection.SqlConnection);
             command.Parameters.AddWithValue("@code", code);
             command.Parameters.AddWithValue("@vrednost", vrednost);
             command.Parameters.AddWithValue("@vreme", vreme);

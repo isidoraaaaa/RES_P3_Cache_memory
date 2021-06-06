@@ -19,10 +19,10 @@ namespace BazaPodataka
         public void OtvoriRemoteKonekciju()
         {
             ZatvoriKonekciju();
-          
-            string baseConnectionString = @"Data Source=" + ip + ";Initial Catalog=CacheMemory;" + "User ID=Isidora Bogdanovic" + ";Password=resprojekat123";
-        
-                try
+
+            string baseConnectionString = @"Data Source=localhost\SQLEXPRESS;Initial Catalog=CacheMemory;Integrated Security=True";
+
+            try
                 {
                     SqlConnection.ConnectionString = baseConnectionString;
                     SqlConnection.Open();

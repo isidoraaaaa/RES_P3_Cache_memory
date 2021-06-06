@@ -189,7 +189,7 @@ namespace ReaderKomponenta
                                 break;
                             case 3:
                                 //prikazuje one kodove koji odgovaraju vremenskom intervalu upisa koji je unesen
-                                Console.WriteLine("Izaberite u kom vremenskom intervalu zelite da prikazete upisane podatke");
+                                Console.WriteLine("Izaberite u kom vremenskom intervalu zelite da prikazete upisane podatke. Interval morate uneti u formatu yyyy-dd-MM");
                                 string period = Console.ReadLine(); //mora biti u formatu yyyy-MM-dd
                                 string []dio = period.Split(' ');
                                 Console.WriteLine("Unesite kod:");
