@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.ServiceModel;
 using Common;
 using System.Diagnostics.CodeAnalysis;
+using BazaPodataka;
 
 namespace Historical
 {
@@ -14,6 +15,12 @@ namespace Historical
         [ExcludeFromCodeCoverage]
         static void Main(string[] args)
         {
+            Connection c = new Connection();
+
+            if (c.ProveriKonekciju() == false)
+            {
+                c.OtvoriRemoteKonekciju();
+            }
             try
             {
                 ServiceHost server = new ServiceHost(typeof(Historical));

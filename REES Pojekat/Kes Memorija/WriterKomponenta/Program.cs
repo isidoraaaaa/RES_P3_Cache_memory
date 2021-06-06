@@ -106,9 +106,9 @@ namespace WriterKomponenta
                 IDumpingBuffer kanal = factory.CreateChannel();
             
                 Console.WriteLine("Uspjesno uspostavljena veza sa serverom");
-                Thread t1 = new Thread(()=>automatsko(kanal));
+              //   Thread t1 = new Thread(()=>automatsko(kanal));
                 Thread t2 = new Thread(()=>manuelno(kanal));
-                t1.Start();
+               // t1.Start();
                 t2.Start();              
             }
             catch (Exception )

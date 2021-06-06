@@ -17,6 +17,7 @@ namespace Historical
         List<Description> listDescriptions = new List<Description>();
         Baza baza = new Baza();
         Connection c = new Connection();
+        int brojac = 1;
         
         bool ispravanPodatak1=false;
         bool ispravanPodatak2 = false;
@@ -25,15 +26,13 @@ namespace Historical
         bool ispravanPodatak5 = false;
         public bool WriteToHistory(DeltaCD cd)
         {
-            konverzijaULD(cd);
-            if(konverzijaULD(cd) == true)
+          
+            if (konverzijaULD(cd)==true)
             {
                 return true;
             }
             else
-            {
-                return false;
-            }
+             return false;
 
         }
         //ne moze se ni ovo testirati posto zahtjeva rad sa bazom
@@ -51,20 +50,22 @@ namespace Historical
                 }
                 description.ListHistoricalPropertys.Add(HistoricalProperty);
                 listDescriptions.Add(description);
-                
 
                 if (c.ProveriKonekciju() == false)
                 {
-                     c.OtvoriRemoteKonekciju();
+                    c.OtvoriRemoteKonekciju();
                 }
-                                  
+
                 foreach (KeyValuePair<string, double> pair in HistoricalProperty)
                 {
                     if (ProveraDeadband(pair) == true && ProveraPodataka(description.DataSet) == true)
                     {
-                        UpisPodatakaUBazu(pair);
+                        UpisPodatakaUBazuSaHistoricala(pair);
                     }
                 }
+
+                HistoricalProperty.Clear();
+
                 return true;
             }
             else
@@ -79,21 +80,18 @@ namespace Historical
                 description.ListHistoricalPropertys.Add(HistoricalProperty);
                 listDescriptions.Add(description);
 
-                if (c.ProveriKonekciju() == false)
-                {
-                    c.OtvoriRemoteKonekciju();
-                }
+               
 
                 foreach (KeyValuePair<string, double> pair in HistoricalProperty)
                 {
-                    if (ProveraDeadband(pair) == true && ProveraPodataka(description.DataSet) == true)
-                    {
-                        UpisPodatakaUBazu(pair);
-                       
-                    }
+                    //if (ProveraDeadband(pair) == true && ProveraPodataka(description.DataSet) == true)
+                    //{
+                    UpisPodatakaUBazuSaHistoricala(pair);
+
+                    //}
                 }
                 return false;
-            } 
+            }
         }
         public bool ProveraPodataka(Dictionary<string,int> dataset)
         {
@@ -166,54 +164,49 @@ namespace Historical
 
         }
         //Ne moze da se testira posto mora biti otvorena konekcija
-        public void UpisPodatakaUBazu(KeyValuePair<string,double> pair)
+        public void UpisPodatakaUBazuSaHistoricala(KeyValuePair<string,double> pair)
         {
            
                 if (pair.Key.Equals("CODE_ANALOG"))
                 {
-                    baza.UpisPodatakaUBazu("dataset_1", pair.Key, pair.Value);
+                    baza.UpisPodatakaUBazu("dataset_1", pair.Key, pair.Value,DateTime.Now);
                 }
                 if (pair.Key.Equals("CODE_DIGITAL"))
                 {
-                    baza.UpisPodatakaUBazu("dataset_1", pair.Key, pair.Value);
+                    baza.UpisPodatakaUBazu("dataset_1", pair.Key, pair.Value, DateTime.Now);
                 }
                 if (pair.Key.Equals("CODE_CUSTOM"))
                 {
-                    baza.UpisPodatakaUBazu("dataset_2", pair.Key, pair.Value);
+                    baza.UpisPodatakaUBazu("dataset_2", pair.Key, pair.Value, DateTime.Now);
                 }
                 if (pair.Key.Equals("CODE_LIMITSET"))
                 {
-                    baza.UpisPodatakaUBazu("dataset_2", pair.Key, pair.Value);
+                    baza.UpisPodatakaUBazu("dataset_2", pair.Key, pair.Value, DateTime.Now);
                 }
                 if (pair.Key.Equals("CODE_SINGLENODE"))
                 {
-                    baza.UpisPodatakaUBazu("dataset_3", pair.Key, pair.Value);
+                    baza.UpisPodatakaUBazu("dataset_3", pair.Key, pair.Value, DateTime.Now);
                 }
                if (pair.Key.Equals("CODE_MULTIPLENODE"))
                 {
-                    baza.UpisPodatakaUBazu("dataset_3", pair.Key, pair.Value);
+                    baza.UpisPodatakaUBazu("dataset_3", pair.Key, pair.Value, DateTime.Now);
                 }
                 if (pair.Key.Equals("CODE_CONSUMER"))
                 {
-                    baza.UpisPodatakaUBazu("dataset_4", pair.Key, pair.Value);
+                    baza.UpisPodatakaUBazu("dataset_4", pair.Key, pair.Value, DateTime.Now);
                 }
                 if (pair.Key.Equals("CODE_SOURCE"))
                 {
-                    baza.UpisPodatakaUBazu("dataset_4", pair.Key, pair.Value);
+                    baza.UpisPodatakaUBazu("dataset_4", pair.Key, pair.Value, DateTime.Now);
                 }
                 if (pair.Key.Equals("CODE_MOTION"))
                 {
-                    baza.UpisPodatakaUBazu("dataset_5", pair.Key, pair.Value);
+                    baza.UpisPodatakaUBazu("dataset_5", pair.Key, pair.Value, DateTime.Now);
                 }
                if (pair.Key.Equals("CODE_SENSOR"))
                 {
-                    baza.UpisPodatakaUBazu("dataset_5", pair.Key, pair.Value);
+                    baza.UpisPodatakaUBazu("dataset_5", pair.Key, pair.Value, DateTime.Now);
                 }
-           
-
-                HistoricalProperty = new Dictionary<string, double>();
-
-   
 
         }
         //Pokrivenost koda ne moze da se provjeri za ovo jer se konekcija sa bazom uspostavi tek nakon pokretanja programa

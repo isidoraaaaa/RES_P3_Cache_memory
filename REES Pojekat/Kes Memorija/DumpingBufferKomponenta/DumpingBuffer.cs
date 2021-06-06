@@ -311,11 +311,11 @@ namespace DumpingBufferKomponenta
 
             }
 
-            if (brojacUkupnoPrimljenihPodatakaOdWritera == 5)//10
+            if (brojacUkupnoPrimljenihPodatakaOdWritera == 2)//10
             {
                 if (dc.Add == null && dc.Update == null)
                 {
-                    if (brojacUkupnoPrimljenihPodatakaOdWritera == 7)//20
+                    if (brojacUkupnoPrimljenihPodatakaOdWritera == 6)//20
                     {
                         kanal.WriteToHistory(dc);
                         brojacUkupnoPrimljenihPodatakaOdWritera = 0;
@@ -330,7 +330,7 @@ namespace DumpingBufferKomponenta
                 {
                     kanal.WriteToHistory(dc);
                     brojacUkupnoPrimljenihPodatakaOdWritera = 0;
-                   cd = new CollectionDescription();
+                    cd = new CollectionDescription();
                     dc = new DeltaCD();
                 }
             }

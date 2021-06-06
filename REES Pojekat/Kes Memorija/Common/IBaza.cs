@@ -11,7 +11,7 @@ namespace Common
     public interface IBaza
     {
        
-        void UpisPodatakaUBazu(string tabela, string code,double value);
+        void UpisPodatakaUBazu(string tabela, string code,double value,DateTime datum);
         List<double> CitanjePodatakaIzBaze(string tabela, string code);
 
     }
